@@ -1,5 +1,5 @@
 ```css 
-.p{text-indent: 2em;} 
+p{text-indent: 2em;} 
 ```
 #Web项目建议书
 
