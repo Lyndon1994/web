@@ -13,6 +13,18 @@ class User extends CI_Controller
     {
         parent::__construct();
         $this->load->model('user_model');
+        $this->load->model('validateCode_model');
+
+    }
+
+    public function test(){
+        $validate = $this->input->post('validate');
+        if($_SESSION['code']==$validate){
+            $this->load->view('user/success');
+        }
+        else{
+            echo "error";
+        }
     }
 
     public function login(){
@@ -20,11 +32,12 @@ class User extends CI_Controller
         $this->load->library('form_validation');
         $this->form_validation->set_rules('username', 'username', 'required');
         $this->form_validation->set_rules('password', 'password', 'required');
+        
         if ($this->form_validation->run() === FALSE)
         {
-            $this->load->view('common/header');
+//            $this->load->view('common/header');
             $this->load->view('user/login');
-            $this->load->view('common/footer');
+//            $this->load->view('common/footer');
         }
         else
         {

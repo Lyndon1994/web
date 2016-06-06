@@ -1,4 +1,3 @@
-# bookcrossing.sql
 
 create database bookcrossing;
 use bookcrossing;
@@ -58,8 +57,6 @@ insert into user values(NULL,'haha','1111','西电',123456,'manager',5);
 
  insert into book(bookid,userid,bookname,author,introduction,status,class)value
  	(NULL,2,'幻城','郭敬明','前世','阅读中','玄幻');
-  update book set image=load_file('D:\Documents\Downloads\mysql-5.7.12-winx64
-  	\instance1.jpg') where bookid=1;
 
 
 
