@@ -1,66 +1,63 @@
+CREATE DATABASE bookcrossing
+  DEFAULT CHARACTER SET utf8
+  COLLATE utf8_general_ci;
+USE bookcrossing;
 
-create database bookcrossing;
-use bookcrossing;
 
-
-create table user(
-userid int(10) not null primary key auto_increment,
-username varchar(30) not null,
-password varchar(20) not null,
-address varchar(30) not null,
-phone varchar(20) not null,
-role varchar(30) not null,
-credits int(3) not null
+CREATE TABLE user (
+  userid   INT(10)     NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  username VARCHAR(30) NOT NULL,
+  password VARCHAR(20) NOT NULL,
+  address  VARCHAR(30) NOT NULL,
+  phone    VARCHAR(20) NOT NULL,
+  role     VARCHAR(30) NOT NULL,
+  credits  INT(3)      NOT NULL
 );
 
 
-create table book(
-bookid int(10) not null primary key auto_increment,
-userid int(10) not null,
-bookname varchar(30) not null,
-author varchar(30) not null,
-introduction varchar(30) not null,
-status varchar(30) not null,
-class varchar(30) not null,
-image varchar(30)
+CREATE TABLE book (
+  bookid       INT(10)     NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  userid       INT(10)     NOT NULL,
+  bookname     VARCHAR(30) NOT NULL,
+  author       VARCHAR(30) NOT NULL,
+  introduction VARCHAR(30) NOT NULL,
+  status       VARCHAR(30) NOT NULL,
+  class        VARCHAR(30) NOT NULL,
+  image        VARCHAR(30)
 );
 
 
-
-create table log(
-id int(10) not null primary key auto_increment,
-bookid int(10) not null,
-userid int(10) not null,
-begintime date,
-endtime date,
-returntime date,
-foreign key(bookid) references book(bookid),
-foreign key(userid) references user(userid)
+CREATE TABLE log (
+  id         INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  bookid     INT(10) NOT NULL,
+  userid     INT(10) NOT NULL,
+  begintime  DATE,
+  endtime    DATE,
+  returntime DATE,
+  FOREIGN KEY (bookid) REFERENCES book (bookid),
+  FOREIGN KEY (userid) REFERENCES user (userid)
 );
 
 
-create table comments(
-id int(10)  not null primary key auto_increment,
-userid int(10) not null,
-bookid int(10) not null,
-content varchar(500),
-foreign key(bookid) references book(bookid),
-foreign key(userid) references user(userid)
+CREATE TABLE comments (
+  id      INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  userid  INT(10) NOT NULL,
+  bookid  INT(10) NOT NULL,
+  content VARCHAR(500),
+  FOREIGN KEY (bookid) REFERENCES book (bookid),
+  FOREIGN KEY (userid) REFERENCES user (userid)
 );
 
 
+INSERT INTO user VALUES (NULL, 'summer', '1111', '西安', 1234128, 'user', 5);
+INSERT INTO user VALUES (NULL, 'haha', '1111', '西电', 123456, 'manager', 5);
 
 
-insert into user values(NULL,'summer','1111','西安',1234128,'user',5);
-insert into user values(NULL,'haha','1111','西电',123456,'manager',5);
+INSERT INTO book (bookid, userid, bookname, author, introduction, status, class) VALUE
+  (NULL, 2, '幻城', '郭敬明', '前世', '阅读中', '玄幻');
 
 
- insert into book(bookid,userid,bookname,author,introduction,status,class)value
- 	(NULL,2,'幻城','郭敬明','前世','阅读中','玄幻');
+INSERT INTO log VALUES (NULL, 1, 2, '2016-05-04', '2016-06-04', '2016-06-01');
 
 
-
-insert into log values(NULL,1,2,'2016-05-04','2016-06-04','2016-06-01');
-
-
- insert into comments values(NULL,2,1,'这本书很好看，很有想象力');
+INSERT INTO comments VALUES (NULL, 2, 1, '这本书很好看，很有想象力');
