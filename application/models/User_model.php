@@ -1,18 +1,22 @@
 <?php 
 
 class User_model extends CI_Model{
-    public function get_user($name = FALSE)
-    {
-        if ($name === FALSE)
-        {
-            $query = $this->db->get('user');
-            return $query->result_array();
-        }
-
-        $sql = "select * from user where username=?";
-        $query = $this->db->query($sql, array($name));
+    public function get_all_user(){
+        $query = $this->db->get('user');
         return $query->result();
     }
+    
+    public function get_user($name = FALSE,$password= FALSE)
+    {
+        if ($name === FALSE||$password === FALSE)
+        {
+            return null;
+        }
+        $sql = "select * from user where username=? AND password = ?";
+        $query = $this->db->query($sql, array($name,$password));
+        return $query->result();
+    }
+    
 
     public function get_user_by_id($userid)
     {
@@ -34,7 +38,7 @@ class User_model extends CI_Model{
 			'role' => 'user',
 			'credits' => 0
         );
-
+        
         return $this->db->insert('user', $data);
     }
 

@@ -24,20 +24,29 @@ class Book_model extends CI_Model{
         return false;
     }
 
-    public function set_book()
+    public function get_mine(){
+        $sql = "select * from book where username=?";
+        $query = $this->db->query($sql, array($_SESSION['user']->username));
+        return $query->result();
+    }
+
+    public function set_book($image)
     {
         $data = array(
-			'userid' => $this->input->post('bookname'),
+			'username' => $_SESSION['user']->username,
 			'bookname' => $this->input->post('bookname'),
 			'author' => $this->input->post('author'),
 			'introduction' => $this->input->post('introduction'),
-			'status' => 'on',
+			'status' => '在架上',
 			'class' => $this->input->post('class'),
-            'image' => $this->input->post('image')
+            'image' => $image
         );
 
         return $this->db->insert('book', $data);
     }
 
-    
+    public function reservation($id){
+        $sql = "update book set status = '预约中' where bookid=?";
+        $this->db->query($sql, array($id));
+    }
 }

@@ -1,4 +1,4 @@
-<!-- 登陆页面 -->
+<!-- 分享书本的介绍 -->
 <!DOCTYPE html>
 <html lang="zh-CN">
 
@@ -9,9 +9,10 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>sign in@bookshare</title>
+    <link rel="icon" href="../../favicon.ico">
+    <title>share my book@bookshare</title>
     <!-- Bootstrap -->
-    <link href="<?php echo base_url();?>source/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo base_url(); ?>source/css/bootstrap.min.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -28,7 +29,8 @@
             <div class="container-fluid">
                 <!-- 标题的头部 -->
                 <div class="navbar-header ">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                            aria-expanded="false" aria-controls="navbar">
                         <!--  <span class="sr-only">Toggle navigation</span>
                           <span class="icon-bar">zjw</span>
                           <span class="icon-bar"></span>
@@ -43,46 +45,57 @@
                         <li>
                             <a href="main.html"><span class="glyphicon glyphicon-home"></span></a>
                         </li>
-                    </ul>
                 </div>
         </nav>
     </div>
 </div>
 </div>
-<!-- 检查表单是否完整 -->
-<script src="<?php echo base_url();?>source/js/bootstrap.min.js"></script>
-<!-- 登陆 -->
+<!-- 提交书本的表单-->
 <div class="container">
     <center>
-        <!-- 登陆的表单 -->
-        <form action="<?php echo site_url('user/login');?>" method="post" class="form-signin" style="width:300px;height:35px;text-align: left" ;>
-            <h2 class="form-signin-heading">Please sign in</h2>
+        <form action="<?php echo site_url('book/add'); ?>" enctype="multipart/form-data" method="post" class="form-signin"
+              style="width:600px;height:70px;text-align: left" ;>
+            <h2 class="form-signin-heading" style="text-align: center;">Share My Book</h2>
             <?php if (isset($tip)&&$tip!=''){ ?>
                 <div class="alert alert-danger" role="alert"><?php echo $tip;?></div>
             <?php } ?>
+            <!--图书ID-->
+            <input name="bookid" type="hidden" value="<?php echo ($this->db->count_all('book')+1);?>">
+            <!-- 图书名字 -->
+            <label for="bookName" class="form-group">Book Name</label>
+            <input name="bookname" type="text" id="bookName" class="form-control" placeholder="Book Name" required
+                   autofocus>
             <br>
-            <!-- 账户 -->
-            <label for="inputEmail" class="sr-only">Email address</label>
-            <input name="username" type="text" id="inputEmail" class="form-control" placeholder="user name" required autofocus>
-            <br>
-            <!-- 密码 -->
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input name="password" type="password" id="inputPassword" class="form-control" placeholder="password" required>
-            <br>
-            <label for="inputPassword" class="sr-only">Captcha</label>
-            <input type="text" name="validate" placeholder="captcha" size=10  class="form-control" required/>
-            <img title="点击刷新" src="<?php echo site_url('captcha');?>" align="absbottom" onclick="this.src='<?php echo site_url('captcha');?>?'+Math.random();"/>
-
-            <!-- 调转到注册页面 -->
-            <p><a href="<?php echo site_url('user/register');?>">Do not have account!</a></p>
-            <!-- 是否记住密码 -->
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="remember-me"> Remember me
-                </label>
+            <!-- 选择图书的图片 -->
+            <div class="form-group">
+                <label for="inputImg">Image input</label>
+                <input type="file" name="userfile" id="inputImg">
             </div>
-            <!-- 提交按钮 -->
-            <button class="btn btn-lg btn-primary btn-block" type="submit"">Sign in</button>
+            <br>
+            <!-- 图书作者 -->
+            <label for="bookAuthor" class="form-group">Book Author</label>
+            <input name="author" type="text" id="bookAuthor" class="form-control" placeholder="Book Author">
+            <br>
+            <!-- 图书种类 -->
+            <label for="class" class="form-group">Book Author</label>
+            <input name="class" type="text" id="class" class="form-control"
+                   placeholder="Book Class(More tags separated by spaces)">
+            <br>
+            <!-- 图书简介 -->
+            <div>
+                <label for="introduction" class="form-group">Book Introduction</label>
+            </div>
+            <div>
+                <textarea name="introduction" cols="60" rows="10" id="about"></textarea>
+            </div>
+            <br>
+            <!-- summit -->
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Share</button>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
         </form>
     </center>
 </div>
@@ -91,6 +104,7 @@
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="<?php echo base_url(); ?>source/js/bootstrap.min.js"></script>
 </body>
 
 </html>

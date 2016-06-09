@@ -16,7 +16,7 @@ class Captcha extends CI_Controller
     public function index(){
         $this->validateCode_model->doimg();
         unset($_SESSION['code']);
-        $this->session->set_userdata('code', $this->validateCode_model->getCode());
+        $this->session->set_userdata('code', strtolower($this->validateCode_model->getCode()));
     }
 
 }
