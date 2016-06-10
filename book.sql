@@ -32,6 +32,8 @@ CREATE TABLE `book` (
   `class` varchar(30) NOT NULL,
   `image` varchar(100) DEFAULT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `lender` varchar(100) DEFAULT NULL,
+  `owner` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`bookid`),
   KEY `username` (`username`),
   CONSTRAINT `book_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`)
@@ -44,7 +46,7 @@ CREATE TABLE `book` (
 
 LOCK TABLES `book` WRITE;
 /*!40000 ALTER TABLE `book` DISABLE KEYS */;
-INSERT INTO `book` VALUES (2,'user@user.com','钢铁是怎样炼成的','[苏] 尼·奥斯特洛夫斯基 ','本书的主人公保尔·柯察金饱尝了生活的苦难，炼就了革命精神和反抗性格。十月革命爆发后只有十六岁的他，就参加了红军，无论在战炮火中，还是在国民经济复时期，可察金都表现出大无畏精神，钢铁一般的意志，强烈的爱国主义和对人民的无限的无限忠诚。由于在战争中多次负伤以及劳累过度，他全身瘫痪，双目失明，被牢牢禁锢在床上，但他占胜了精神与肉体的打击，拿起笔来歌颂为建立苏维埃政权而奋斗的英雄。','预约中','小说','/bookcrossing/source/images/books/book2.jpg','2016-06-08 16:00:00'),(3,'user@user.com','三国演义','罗贯中','《三国演义》又名《三国志演义》、《三国志通俗演义》，是我国小说史上最著名最杰出的长篇章回体历史小说。 《三国演义》的作者是元末明初人罗贯中，由毛纶，毛宗岗父子批改。在其成书前，“三国故事”已经历了数百年的历史发展过程。在唐代，三国故事已广为流传，连儿童都很熟悉。随着市民文艺的发展，宋代的“说话”艺人，已有专门说三国故事的，当时称为“说三分”。元代出现的《三国志平话》，实际上是从说书人使用的本子，虽较简略粗糙，但已初肯《三国演义》的规模。罗贯中在群众传说和民间艺人创作的基础上，又依据陈寿《三国志》及裴松之注中所征引的资料（还包括《世说新语》及注中的资料），经过巨大的创作劳动，写在了规模宏伟的巨著——《三国志通俗演义》全书24卷，240回。后来经过毛纶，毛宗岗父子批改，形成我们现在所见的《三国演义》120回版','在架上','小说','/bookcrossing/source/images/books/book3.jpg','2016-06-09 13:06:48');
+INSERT INTO `book` VALUES (2,'user@user.com','钢铁是怎样炼成的','[苏] 尼·奥斯特洛夫斯基 ','本书的主人公保尔·柯察金饱尝了生活的苦难，炼就了革命精神和反抗性格。十月革命爆发后只有十六岁的他，就参加了红军，无论在战炮火中，还是在国民经济复时期，可察金都表现出大无畏精神，钢铁一般的意志，强烈的爱国主义和对人民的无限的无限忠诚。由于在战争中多次负伤以及劳累过度，他全身瘫痪，双目失明，被牢牢禁锢在床上，但他占胜了精神与肉体的打击，拿起笔来歌颂为建立苏维埃政权而奋斗的英雄。','预约中','小说','/bookcrossing/source/images/books/book2.jpg','2016-06-08 16:00:00','admin@admin.com','user@user.com');
 /*!40000 ALTER TABLE `book` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,7 +68,7 @@ CREATE TABLE `comments` (
   KEY `username` (`username`),
   CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`bookid`) REFERENCES `book` (`bookid`),
   CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`username`) REFERENCES `user` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,7 +100,7 @@ CREATE TABLE `log` (
   KEY `username` (`username`),
   CONSTRAINT `log_ibfk_1` FOREIGN KEY (`bookid`) REFERENCES `book` (`bookid`),
   CONSTRAINT `log_ibfk_2` FOREIGN KEY (`username`) REFERENCES `user` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -107,7 +109,7 @@ CREATE TABLE `log` (
 
 LOCK TABLES `log` WRITE;
 /*!40000 ALTER TABLE `log` DISABLE KEYS */;
-INSERT INTO `log` VALUES (1,2,'user@user.com','2016-05-04','2016-06-04','returned'),(2,2,'user@user.com','2016-06-09',NULL,'预约中'),(3,2,'user@user.com','2016-06-09',NULL,'预约中');
+INSERT INTO `log` VALUES (1,2,'user@user.com','2016-05-04','2016-06-04','returned'),(2,2,'user@user.com','2016-06-10',NULL,'在读'),(3,2,'user@user.com','2016-06-10',NULL,'在读'),(6,2,'admin@admin.com',NULL,NULL,'预约中');
 /*!40000 ALTER TABLE `log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -135,7 +137,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('admin@admin.com','1111','西电','123456','admin',5),('user@user.com','1111','西安','1234128','user',5);
+INSERT INTO `user` VALUES ('admin@admin.com','1111','西电','123456','admin',-5),('user@user.com','1111','西安','1234128','user',15);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -148,4 +150,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-09 23:54:24
+-- Dump completed on 2016-06-10 15:12:13
