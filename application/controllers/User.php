@@ -12,10 +12,25 @@ class User extends CI_Controller
     {
         parent::__construct();
         $this->load->model('user_model');
+        $this->load->model('book_model');
         $this->load->model('log_model');
 
     }
 
+    public function index($username=FALSE){
+        $this->user_model->is_login();
+        if($username===FALSE) {
+            $data['user'] = $_SESSION['user'];
+            $data['books'] = $this->book_model->get_mine($_SESSION['user']->username);
+            $data['ownbooks'] = $this->book_model->get_own($_SESSION['user']->username);
+            $this->load->view('user/user', $data);
+        }else{
+            $data['user'] = $this->user_model->get_user_by_username($username);
+            $data['books'] = $this->book_model->get_mine($username);
+            $data['ownbooks'] = $this->book_model->get_own($username);
+            $this->load->view('user/user', $data);
+        }
+    }
 
     public function login()
     {
@@ -64,8 +79,7 @@ class User extends CI_Controller
         $this->form_validation->set_rules('phone', 'phone', 'required');
 
         if ($this->form_validation->run() === FALSE) {
-            $data['tip'] = '错误';
-            $this->load->view('user/register',$data);
+            $this->load->view('user/register');
 
         } else {
             $name = $this->input->post('username');
@@ -83,7 +97,20 @@ class User extends CI_Controller
     }
 
     public function history(){
+        $this->user_model->is_login();
         $data['logs'] = $this->log_model->get_log($_SESSION['user']->username);
         $this->load->view("user/history",$data);
+    }
+    
+    public function manage(){
+        $this->user_model->is_manager();
+        $data['users'] = $this->user_model->get_all_user();
+        $this->load->view('user/manage',$data);
+    }
+
+    public function change_credits($c,$username){
+        $this->user_model->is_manager();
+        $this->user_model->change_credits($c,$username);
+        redirect('/user/manage/');
     }
 }

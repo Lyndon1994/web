@@ -22,10 +22,20 @@ class Log_model extends CI_Model{
         $data = array(
 			'bookid' => $bookid,
 			'username' => $_SESSION['user']->username,
-			'begintime' => date("Y-m-d"),
             'status' =>'预约中'
         );
         
         return $this->db->insert('log', $data);
+    }
+
+    public function update_log($bookid){
+        //修改上一个读者的log
+        $sql = "UPDATE log SET endtime = ? , status = '读完' WHERE bookid = ? AND username = ? AND status = '在读'";
+        $owner = $this->db->query("SELECT owner FROM book WHERE bookid = ".$bookid)->result();
+        $this->db->query($sql, array(date('Y-m-d'),$bookid,$owner[0]->owner));
+
+        //修改此读者log
+        $sql = "UPDATE log SET begintime = ? , status = '在读' WHERE bookid = ? AND username = ? AND status = '预约中'";
+        $this->db->query($sql, array(date('Y-m-d'),$bookid,$_SESSION['user']->username));
     }
 }

@@ -7,8 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="图书漂流">
+    <meta name="author" content="linyi zhoujiawei">
+    <link rel="icon" href="<?php echo base_url(); ?>source/images/book.ico">
     <title>Book Share</title>
     <!-- Bootstrap core CSS -->
     <link href="<?php echo base_url(); ?>source/css/bootstrap.min.css" rel="stylesheet">
@@ -32,13 +33,11 @@
                           <span class="icon-bar"></span> -->
                     </button>
                     <!-- 标题的名字 -->
-                    <a class="navbar-brand" href="#">Book Share</a>
+                    <a class="navbar-brand" href="<?php echo site_url(); ?>">Book Share</a>
                 </div>
                 <!-- 副标题 -->
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <!-- 返回主页 -->
-                        <li><a href="main.html"><span class="glyphicon glyphicon-home"></span></a></li>
                         <!-- 登录 -->
                         <!--
                         <script type="text/javascript">
@@ -66,11 +65,11 @@
                                         class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="<?php echo site_url('book/add'); ?>">Share my books</a></li>
-                                    <li><a href="<?php echo site_url('book/mine'); ?>">My books</a></li>
+                                    <li><a href="<?php echo site_url('user'); ?>">My books</a></li>
                                     <li><a href="<?php echo site_url('user/history'); ?>">History</a></li>
                                     <?php if ($user->role == 'admin') { ?>
-                                        <li><a href="<?php echo site_url('user/application'); ?>">Manage
-                                                Applications</a></li>
+                                        <li><a href="<?php echo site_url('book/manage'); ?>">Manage Books</a></li>
+                                        <li><a href="<?php echo site_url('user/manage'); ?>">Manage Users</a></li>
                                     <?php } ?>
                                     <li role="separator" class="divider"></li>
                                     <!-- 如果是管理员，那么跳到管理员的界面 -->
@@ -85,28 +84,17 @@
                         <!-- 搜索图书-->
                         <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11 -->
                         <li><a href="<?php echo site_url('about'); ?>">About</a></li>
-                        <form class="navbar-right navbar-form " role="search">
+                        <form action="<?php echo site_url('book/search');?>" method="post" class="navbar-right navbar-form " role="search">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search">
+                                <input name="key" type="text" class="form-control" placeholder="Search">
                             </div>
-                            <!-- 如果成功查找跳到 searchBooks.html -->
-                            <script type="text/javascript">
-                                function jump() {
-                                    window.open("searchBooks.html");
-                                }
-                                //如果没有成功，那么跳到 noSuchBook.html
-                                function jumpError() {
-                                    window.open("searchBooks.html");
-                                }
-                            </script>
-                            <button type="submit" class="btn btn-default" onclick="jump()">Submit</button>
+                            <button type="submit" class="btn btn-default">Search</button>
                         </form>
                     </ul>
                     <!-- dropdown  -->
                 </div>
         </nav>
     </div>
-</div>
 </div>
 <!-- 巨幕 -->
 <!-- ================================================== -->
@@ -115,9 +103,6 @@
         <h1>Book Share</h1>
         <br>
         <h3>Books is flying here! Find your own books! Share your books!</h3>
-        <br>
-        <p class="btn btn-info btn-lg" role="button"><a href="memberIntro.html">Learn More</a>
-        </p>
     </div>
 </div>
 <!-- Marketing messaging and featurettes
@@ -145,6 +130,9 @@
                     <span class="label label-info"><?php echo $book->author ?></span>
                     <span class="label label-default"><?php echo $book->class ?></span>
                     <span class="label label-primary"><?php echo $book->status ?></span>
+                    <?php if ($book->status == '在架上'||$book->status == '在读') { ?>
+                        <span><a href="<?php echo site_url('book/borrow').'/'.$book->bookid; ?>" class="btn btn-warning" style="color: blue" role="button">预约</a></span>
+                    <?php } ?>
                 </h2>
                 <!-- 书籍的介绍 -->
                 <p class="lead"><?php echo $book->introduction ?></p>
@@ -159,7 +147,7 @@
 <div class="container">
     <footer>
         <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2016 zjw &middot; <a href="#">Privacy</a> &middot; </p>
+        <p>Copyright &copy; 2016 <a href="<?php echo site_url('about/team');?>">WEB</a></p>
     </footer>
 </div>
 <!-- /.container -->

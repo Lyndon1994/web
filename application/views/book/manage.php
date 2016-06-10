@@ -7,7 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>History</title>
+    <link rel="icon" href="<?php echo base_url(); ?>source/images/book.ico">
+    <title>Manage Books</title>
     <!-- Bootstrap -->
     <link href="<?php echo base_url();?>source/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -91,8 +92,7 @@
         </nav>
     </div>
 </div>
-<!-- 显示申请借阅，借阅成功，借阅失败的表格-->
-<h2 style="text-align: center;">History</h2>
+<h2 style="text-align: center;">Manage Books</h2>
 <br>
 <div class="container">
     <table class="table table-striped">
@@ -100,24 +100,22 @@
             <!-- 流水号 -->
             <th>No.</th>
             <th>Book name</th>
-            <!-- 记录类型：借阅，分享 -->
-            <th>Starting time</th>
-            <!-- 申请时间 -->
-            <th>End time</th>
             <th>Status</th>
+            <th>Time</th>
+            <th>Manage</th>
         </tr>
         <!-- 成功分享，没有被借阅 -->
-        <?php $i=1; foreach ($logs as $log){?>
+        <?php $i=1; foreach ($books as $book){?>
         <tr>
             <td><?php echo $i++;?></td>
-            <td><a href="<?php echo site_url('book').'/'.$log->bookid;?>"><?php echo $log->bookname;?></a></td>
-            <td><?php echo $log->begintime;?></td>
-            <td><?php echo $log->endtime;?></td>
+            <td><a href="<?php echo site_url('book').'/'.$book->bookid;?>"><?php echo $book->bookname;?></a></td>
+            <td><a href="<?php echo site_url('user/info').'/'.$book->lender;?>"><?php echo $book->lender;?></a><?php echo $book->status;?></td>
+            <td><?php echo $book->time;?></td>
             <td>
-                <?php echo $log->status;?>
-                <?php if ($log->status=='预约中'){?>
-                    <a href="<?php echo site_url('book/get').'/'.$log->bookid;?>" type="button" class="btn btn-default">已收到</a>
+                <?php if ($book->status=='审核中'){?>
+                    <a href="<?php echo site_url('book/pass').'/'.$book->bookid;?>" type="button" class="btn btn-success">通过</a>
                 <?php } ?>
+                <a href="<?php echo site_url('book/delete').'/'.$book->bookid;?>" type="button" class="btn btn-danger">删除</a>
             </td>
         </tr>
         <?php }?>

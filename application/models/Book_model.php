@@ -24,9 +24,14 @@ class Book_model extends CI_Model{
         return false;
     }
 
-    public function get_mine(){
+    public function get_mine($username){
         $sql = "select * from book where username=?";
-        $query = $this->db->query($sql, array($_SESSION['user']->username));
+        $query = $this->db->query($sql, array($username));
+        return $query->result();
+    }
+    public function get_own($username){
+        $sql = "select * from book where owner=?";
+        $query = $this->db->query($sql, array($username));
         return $query->result();
     }
 
@@ -37,7 +42,7 @@ class Book_model extends CI_Model{
 			'bookname' => $this->input->post('bookname'),
 			'author' => $this->input->post('author'),
 			'introduction' => $this->input->post('introduction'),
-			'status' => '在架上',
+			'status' => '审核中',
 			'class' => $this->input->post('class'),
             'image' => $image
         );
@@ -46,7 +51,29 @@ class Book_model extends CI_Model{
     }
 
     public function reservation($id){
-        $sql = "update book set status = '预约中' where bookid=?";
+        $sql = "update book set status = '预约中' , lender = ? where bookid=?";
+        $this->db->query($sql, array($_SESSION['user']->username,$id));
+    }
+    
+    public function reading($id){
+        $sql = "update book set status = '在读' , lender = NULL , owner = ? where bookid=?";
+        $this->db->query($sql, array($_SESSION['user']->username,$id));
+    }
+
+    public function pass($id){
+        $sql = "update book set status = '在架上' where bookid=?";
         $this->db->query($sql, array($id));
+    }
+
+    public function delete($id){
+        $tables = array('comments', 'log', 'book');
+        $this->db->where('bookid', $id);
+        $this->db->delete($tables);
+    }
+
+    public function search(){
+        $key = $this->input->post('key');
+        $sql = "select * from book WHERE author LIKE '%' '".$key."' '%' OR introduction LIKE '%' '".$key."' '%' OR status LIKE '%' '".$key."' '%' OR class LIKE '%' '".$key."' '%'";
+        return $this->db->query($sql)->result();
     }
 }

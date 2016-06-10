@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>History</title>
+    <title>history@book share</title>
     <!-- Bootstrap -->
     <link href="<?php echo base_url();?>source/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -92,37 +92,60 @@
     </div>
 </div>
 <!-- 显示申请借阅，借阅成功，借阅失败的表格-->
-<h2 style="text-align: center;">History</h2>
+<div class="container">
+<div class="jumbotron">
+    <h1><?php echo $user->username;?></h1>
+    <p><span class="label label-primary">Phone:<?php echo $user->phone;?></span>
+        <span class="label label-info">Credit:<?php echo $user->credits;?></span>
+    </p>
+    <p><span class="label label-default">Address:<?php echo $user->address;?></span></p>
+</div>
+</div>
 <br>
 <div class="container">
+    <h2 style="text-align: center;">My Shared Books</h2>
     <table class="table table-striped">
         <tr>
             <!-- 流水号 -->
             <th>No.</th>
             <th>Book name</th>
-            <!-- 记录类型：借阅，分享 -->
-            <th>Starting time</th>
-            <!-- 申请时间 -->
-            <th>End time</th>
+            <th>Owner</th>
             <th>Status</th>
+            <th>Time</th>
         </tr>
         <!-- 成功分享，没有被借阅 -->
-        <?php $i=1; foreach ($logs as $log){?>
+        <?php $i=1; foreach ($books as $book){?>
         <tr>
             <td><?php echo $i++;?></td>
-            <td><a href="<?php echo site_url('book').'/'.$log->bookid;?>"><?php echo $log->bookname;?></a></td>
-            <td><?php echo $log->begintime;?></td>
-            <td><?php echo $log->endtime;?></td>
-            <td>
-                <?php echo $log->status;?>
-                <?php if ($log->status=='预约中'){?>
-                    <a href="<?php echo site_url('book/get').'/'.$log->bookid;?>" type="button" class="btn btn-default">已收到</a>
-                <?php } ?>
-            </td>
+            <td><a href="<?php echo site_url('book').'/'.$book->bookid;?>"><?php echo $book->bookname;?></a></td>
+            <td><a href="<?php echo site_url('user/info').'/'.$book->owner;?>"><?php echo $book->owner;?></a></td>
+            <td><a href="<?php echo site_url('user/info').'/'.$book->lender;?>"><?php echo $book->lender;?></a><?php echo $book->status;?></td>
+            <td><?php echo $book->time;?></td>
         </tr>
         <?php }?>
     </table>
-    <br>
+    <hr>
+    <h2 style="text-align: center;">My Owned Books</h2>
+    <table class="table table-striped">
+        <tr>
+            <!-- 流水号 -->
+            <th>No.</th>
+            <th>Book name</th>
+            <th>Primitive Owner</th>
+            <th>Status</th>
+            <th>Time</th>
+        </tr>
+        <!-- 成功分享，没有被借阅 -->
+        <?php $i=1; foreach ($ownbooks as $ownbook){?>
+            <tr>
+                <td><?php echo $i++;?></td>
+                <td><a href="<?php echo site_url('book').'/'.$ownbook->bookid;?>"><?php echo $ownbook->bookname;?></a></td>
+                <td><a href="<?php echo site_url('user/info').'/'.$ownbook->username;?>"><?php echo $ownbook->username;?></a></td>
+                <td><a href="<?php echo site_url('user/info').'/'.$ownbook->lender;?>"><?php echo $ownbook->lender;?></a><?php echo $ownbook->status;?></td>
+                <td><?php echo $ownbook->time;?></td>
+            </tr>
+        <?php }?>
+    </table>
     <br>
     <!-- 返回按钮 -->
     <script type="text/javascript">

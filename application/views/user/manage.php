@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>History</title>
+    <title>Manage Users</title>
     <!-- Bootstrap -->
     <link href="<?php echo base_url();?>source/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -91,35 +91,37 @@
         </nav>
     </div>
 </div>
-<!-- 显示申请借阅，借阅成功，借阅失败的表格-->
-<h2 style="text-align: center;">History</h2>
+<h2 style="text-align: center;">Manage Users</h2>
 <br>
 <div class="container">
     <table class="table table-striped">
         <tr>
             <!-- 流水号 -->
             <th>No.</th>
-            <th>Book name</th>
-            <!-- 记录类型：借阅，分享 -->
-            <th>Starting time</th>
-            <!-- 申请时间 -->
-            <th>End time</th>
-            <th>Status</th>
+            <th>User name</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>role</th>
+            <th>credits</th>
+            <th>manage</th>
         </tr>
         <!-- 成功分享，没有被借阅 -->
-        <?php $i=1; foreach ($logs as $log){?>
-        <tr>
-            <td><?php echo $i++;?></td>
-            <td><a href="<?php echo site_url('book').'/'.$log->bookid;?>"><?php echo $log->bookname;?></a></td>
-            <td><?php echo $log->begintime;?></td>
-            <td><?php echo $log->endtime;?></td>
-            <td>
-                <?php echo $log->status;?>
-                <?php if ($log->status=='预约中'){?>
-                    <a href="<?php echo site_url('book/get').'/'.$log->bookid;?>" type="button" class="btn btn-default">已收到</a>
-                <?php } ?>
-            </td>
-        </tr>
+        <?php $i=1; foreach ($users as $user){?>
+            <tr>
+                <td><?php echo $i++;?></td>
+                <td><a href="<?php echo site_url('user').'/'.$user->username;?>"><?php echo $user->username;?></a></td>
+                <td><?php echo $user->phone;?></td>
+                <td><?php echo $user->address;?></td>
+                <td><?php echo $user->role;?></td>
+                <td><?php echo $user->credits;?></td>
+                <td>
+                    <a href="<?php echo site_url('user/change_credits').'/'.'10'.'/'.$user->username;?>" type="button" class="btn btn-success">加10分</a>
+                    <a href="<?php echo site_url('user/change_credits').'/'.'-10'.'/'.$user->username;?>" type="button" class="btn btn-warning">减10分</a>
+                    <?php if ($user->role != 'admin') { ?>
+                    <a href="<?php echo site_url('user/defriend').'/'.$user->username;?>" type="button" class="btn btn-danger">拉黑</a>
+                    <?php } ?>
+                </td>
+            </tr>
         <?php }?>
     </table>
     <br>

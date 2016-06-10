@@ -22,34 +22,42 @@
 </head>
 
 <body>
-  <!--  导航条-->
-  <div class="navbar-wrapper">
-    <div class="container">
-      <nav class="navbar navbar-default">
-        <div class="container-fluid">
-          <!-- 标题的头部 -->
-          <div class="navbar-header ">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-              <!--  <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar">zjw</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span> -->
-            </button>
-            <!-- 标题的名字 -->
-            <a class="navbar-brand" href="#">Book Share</a>
-          </div>
-          <div id="navbar" class="navbar-collapse collapse navbar-right">
-            <ul class="nav navbar-nav">
-              <!-- 返回主页 -->
-              <li>
-                <a href="main.html"><span class="glyphicon glyphicon-home"></span></a>
-              </li>
-            </ul>
-          </div>
-      </nav>
-      </div>
-    </div>
+<!-- 导航栏================================================== -->
+<div class="navbar-wrapper">
+  <div class="container">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- 标题的头部 -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                  aria-expanded="false" aria-controls="navbar">
+            <!--  <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar">zjw</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span> -->
+          </button>
+          <!-- 标题的名字 -->
+          <a class="navbar-brand" href="<?php echo site_url(); ?>">Book Share</a>
+        </div>
+        <!-- 副标题 -->
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+
+            <!-- 搜索图书-->
+            <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11 -->
+            <li><a href="<?php echo site_url('about'); ?>">About</a></li>
+            <form action="<?php echo site_url('book/search');?>" method="post" class="navbar-right navbar-form " role="search">
+              <div class="form-group">
+                <input name="key" type="text" class="form-control" placeholder="Search">
+              </div>
+              <button type="submit" class="btn btn-default">Search</button>
+            </form>
+          </ul>
+          <!-- dropdown  -->
+        </div>
+    </nav>
   </div>
+</div>
   <!-- 注册-->
   <div class="container">
     <center>
