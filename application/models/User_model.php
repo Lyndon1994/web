@@ -37,8 +37,9 @@ class User_model extends CI_Model
     {
         $sql = "select * from user where username=?";
         $query = $this->db->query($sql, array($username));
-        $users = $query->result();
-        return $users[0];
+        if($query->num_rows()>0)
+            return $query->unbuffered_row();
+        return FALSE;
     }
 
     public function set_user()

@@ -1,64 +1,177 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?><!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<meta charset="utf-8">
-<title>404 Page Not Found</title>
-<style type="text/css">
+    <title>Page Gone To Heaven</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Style-Type" content="text/css"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
 
-::selection { background-color: #E13300; color: white; }
-::-moz-selection { background-color: #E13300; color: white; }
+        html, body {
+            height: 100%;
+        }
 
-body {
-	background-color: #fff;
-	margin: 40px;
-	font: 13px/20px normal Helvetica, Arial, sans-serif;
-	color: #4F5155;
-}
+        body {
+            background: #fff;
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            font-size: 100%;
+            line-height: 1.25em;
+            color: #b2b3c4;
+            font-style: italic;
+        }
 
-a {
-	color: #003399;
-	background-color: transparent;
-	font-weight: normal;
-}
+        img {
+            border: 0;
+            vertical-align: top;
+            text-align: left;
+        }
 
-h1 {
-	color: #444;
-	background-color: transparent;
-	border-bottom: 1px solid #D0D0D0;
-	font-size: 19px;
-	font-weight: normal;
-	margin: 0 0 14px 0;
-	padding: 14px 15px 10px 15px;
-}
+        ul, ol {
+            list-style: none;
+        }
 
-code {
-	font-family: Consolas, Monaco, Courier New, Courier, monospace;
-	font-size: 12px;
-	background-color: #f9f9f9;
-	border: 1px solid #D0D0D0;
-	color: #002166;
-	display: block;
-	margin: 14px 0 14px 0;
-	padding: 12px 10px 12px 10px;
-}
+        .wrapper {
+            width: 100%;
+            overflow: hidden;
+        }
 
-#container {
-	margin: 10px;
-	border: 1px solid #D0D0D0;
-	box-shadow: 0 0 8px #D0D0D0;
-}
+        /*==== GLOBAL =====*/
+        #main {
+            width: 1000px;
+            margin: 0 auto;
+            background: url('/bookcrossing/source/images/404.jpg') no-repeat left top;
+            font-size: 1.125em;
+            overflow: hidden;
+            position: relative;
+        }
 
-p {
-	margin: 12px 15px 12px 15px;
-}
-</style>
+        #header {
+            height: 190px;
+        }
+
+        #content {
+            min-height: 457px;
+            height: auto !important;
+            height: 457px;
+        }
+
+        #footer {
+            font-family: Tahoma, Geneva, sans-serif;
+            color: #d9daed;
+            font-size: 12px;
+            text-align: center;
+            padding: 8px 0 15px 0;
+            font-style: normal;
+        }
+
+        #footer a {
+            color: #d9daed;
+        }
+
+        p {
+            margin-bottom: 8px;
+            text-align: center;
+            padding: 0 20px;
+            letter-spacing: -1px;
+        }
+
+        /*----- txt, links, lines, titles -----*/
+        a {
+            color: #8e8fc9;
+            outline: none;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        h1 {
+            font-size: 40px;
+            line-height: 1.2em;
+            font-weight: normal;
+            color: #8e8fc9;
+            text-align: center;
+            padding: 80px 0 0 0;
+            text-transform: capitalize;
+            letter-spacing: -2px;
+        }
+
+        h1 span {
+            display: block;
+            font-size: 24px;
+            line-height: 25px;
+            font-variant: normal;
+            text-transform: none;
+            letter-spacing: -1px;
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        }
+
+        /*===== content =====*/
+        #content .nav {
+            position: relative;
+            height: 360px;
+        }
+
+        #content .nav li {
+            position: absolute;
+            font-size: 24px;
+            line-height: 1.2em;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-weight: normal;
+            letter-spacing: -1px;
+            text-transform: capitalize;
+        }
+
+        #content .nav li.home {
+            left: 445px;
+            top: 270px;
+        }
+
+        #content .nav li.site_map {
+            left: 120px;
+            top: 65px;
+        }
+
+        #content .nav li.search {
+            right: 90px;
+            top: 65px;
+        }
+
+        #content .nav li a {
+            color: #a8a9d4;
+            text-decoration: none;
+        }
+
+        #content .nav li a:hover {
+            text-decoration: underline;
+        }
+
+        /*==========================================*/
+
+    </style>
 </head>
+
 <body>
-	<div id="container">
-		<h1><?php echo $heading; ?></h1>
-		<?php echo $message; ?>
-	</div>
+<div id="main">
+    <!-- header -->
+    <div id="header">
+        <h1>Page Gone To Heaven And Doesn't Want To Come Back<span>404 Error - Not Found </span></h1>
+    </div>
+    <!-- content -->
+    <div id="content">
+        <ul class="nav">
+            <li class="home"><a href="#">Home Page</a></li>
+<!--            <li class="site_map"><a href="#">Site Map</a></li>-->
+<!--            <li class="search"><a href="#">Website Search</a></li>-->
+        </ul>
+        <p>Hey, you're early! You don't belong here - at least not today. Besides, what you're looking for is not here
+            anyways.<br/>
+            So why don't you go to our <a href="#">homepage</a>.</p>
+    </div>
+</div>
 </body>
 </html>

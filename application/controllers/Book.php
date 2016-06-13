@@ -99,10 +99,10 @@ class Book extends CI_Controller
         $this->user_model->is_login();
 
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('bookname', 'bookname', 'required');
-        $this->form_validation->set_rules('author', 'author', 'required');
-        $this->form_validation->set_rules('class', 'class', 'required');
-        $this->form_validation->set_rules('introduction', 'introduction', 'required');
+        $this->form_validation->set_rules('bookname', 'Book\'s Name', 'required');
+        $this->form_validation->set_rules('author', 'Author', 'required');
+        $this->form_validation->set_rules('class', 'Class', 'required');
+        $this->form_validation->set_rules('introduction', 'Introduction', 'required');
 
         if ($this->form_validation->run() === FALSE) {
             $this->load->view('book/add');
@@ -111,7 +111,7 @@ class Book extends CI_Controller
             $config['allowed_types'] = 'gif|jpg|png';
             $config['file_name'] = 'book' . $this->input->post('bookid');
             $config['overwrite'] = TRUE;
-            $config['max_size'] = 100;
+            $config['max_size'] = 1000;
             $config['max_width'] = 1024;
             $config['max_height'] = 768;
             $this->load->library('upload', $config);
@@ -120,7 +120,7 @@ class Book extends CI_Controller
 
                 $this->load->view('book/add', $error);
             } else {
-                $image = base_url('source/images/books') . $this->upload->data('file_name');
+                $image = $this->upload->data('file_name');
                 $this->book_model->set_book($image);
                 $this->user_model->change_credits(50);
                 redirect('/');

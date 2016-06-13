@@ -9,7 +9,7 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>history@book share</title>
     <!-- Bootstrap -->
-    <link href="<?php echo base_url();?>source/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo base_url(); ?>source/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -79,7 +79,8 @@
                         <!-- 搜索图书-->
                         <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11 -->
                         <li><a href="<?php echo site_url('about'); ?>">About</a></li>
-                        <form action="<?php echo site_url('book/search');?>" method="post" class="navbar-right navbar-form " role="search">
+                        <form action="<?php echo site_url('book/search'); ?>" method="post"
+                              class="navbar-right navbar-form " role="search">
                             <div class="form-group">
                                 <input name="key" type="text" class="form-control" placeholder="Search">
                             </div>
@@ -93,13 +94,13 @@
 </div>
 <!-- 显示申请借阅，借阅成功，借阅失败的表格-->
 <div class="container">
-<div class="jumbotron">
-    <h1><?php echo $user->username;?></h1>
-    <p><span class="label label-primary">Phone:<?php echo $user->phone;?></span>
-        <span class="label label-info">Credit:<?php echo $user->credits;?></span>
-    </p>
-    <p><span class="label label-default">Address:<?php echo $user->address;?></span></p>
-</div>
+    <div class="jumbotron">
+        <h1><?php echo $userInfo->username; ?></h1>
+        <p><span class="label label-primary">Phone:<?php echo $userInfo->phone; ?></span>
+            <span class="label label-info">Credit:<?php echo $userInfo->credits; ?></span>
+        </p>
+        <p><span class="label label-default">Address:<?php echo $userInfo->address; ?></span></p>
+    </div>
 </div>
 <br>
 <div class="container">
@@ -114,15 +115,20 @@
             <th>Time</th>
         </tr>
         <!-- 成功分享，没有被借阅 -->
-        <?php $i=1; foreach ($books as $book){?>
-        <tr>
-            <td><?php echo $i++;?></td>
-            <td><a href="<?php echo site_url('book').'/'.$book->bookid;?>"><?php echo $book->bookname;?></a></td>
-            <td><a href="<?php echo site_url('user/info').'/'.$book->owner;?>"><?php echo $book->owner;?></a></td>
-            <td><a href="<?php echo site_url('user/info').'/'.$book->lender;?>"><?php echo $book->lender;?></a><?php echo $book->status;?></td>
-            <td><?php echo $book->time;?></td>
-        </tr>
-        <?php }?>
+        <?php $i = 1;
+        foreach ($books as $book) { ?>
+            <tr>
+                <td><?php echo $i++; ?></td>
+                <td><a href="<?php echo site_url('book') . '/' . $book->bookid; ?>"><?php echo $book->bookname; ?></a>
+                </td>
+                <td><a href="<?php echo site_url('user/info') . '/' . $book->owner; ?>"><?php echo $book->owner; ?></a>
+                </td>
+                <td>
+                    <a href="<?php echo site_url('user/info') . '/' . $book->lender; ?>"><?php echo $book->lender; ?></a><?php echo $book->status; ?>
+                </td>
+                <td><?php echo $book->time; ?></td>
+            </tr>
+        <?php } ?>
     </table>
     <hr>
     <h2 style="text-align: center;">My Owned Books</h2>
@@ -136,15 +142,22 @@
             <th>Time</th>
         </tr>
         <!-- 成功分享，没有被借阅 -->
-        <?php $i=1; foreach ($ownbooks as $ownbook){?>
+        <?php $i = 1;
+        foreach ($ownbooks as $ownbook) { ?>
             <tr>
-                <td><?php echo $i++;?></td>
-                <td><a href="<?php echo site_url('book').'/'.$ownbook->bookid;?>"><?php echo $ownbook->bookname;?></a></td>
-                <td><a href="<?php echo site_url('user/info').'/'.$ownbook->username;?>"><?php echo $ownbook->username;?></a></td>
-                <td><a href="<?php echo site_url('user/info').'/'.$ownbook->lender;?>"><?php echo $ownbook->lender;?></a><?php echo $ownbook->status;?></td>
-                <td><?php echo $ownbook->time;?></td>
+                <td><?php echo $i++; ?></td>
+                <td>
+                    <a href="<?php echo site_url('book') . '/' . $ownbook->bookid; ?>"><?php echo $ownbook->bookname; ?></a>
+                </td>
+                <td>
+                    <a href="<?php echo site_url('user/info') . '/' . $ownbook->username; ?>"><?php echo $ownbook->username; ?></a>
+                </td>
+                <td>
+                    <a href="<?php echo site_url('user/info') . '/' . $ownbook->lender; ?>"><?php echo $ownbook->lender; ?></a><?php echo $ownbook->status; ?>
+                </td>
+                <td><?php echo $ownbook->time; ?></td>
             </tr>
-        <?php }?>
+        <?php } ?>
     </table>
     <br>
     <!-- 返回按钮 -->
@@ -159,7 +172,7 @@
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js "></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js "></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="<?php echo base_url();?>source/js/bootstrap.min.js "></script>
+<script src="<?php echo base_url(); ?>source/js/bootstrap.min.js "></script>
 </body>
 
 </html>

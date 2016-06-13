@@ -110,32 +110,36 @@
                 <div class="alert alert-danger" role="alert"><?php echo $tip;?></div>
             <?php } ?>
             <!--图书ID-->
-            <input name="bookid" type="hidden" value="<?php echo ($this->db->count_all('book')+1);?>">
+            <input name="bookid" type="hidden" value="<?php
+            $sql = "select bookid from book order by bookid desc limit 1";
+            $ids = $this->db->query($sql)->result();
+            echo ($ids[0]->bookid+1);?>">
             <!-- 图书名字 -->
             <label for="bookName" class="form-group">Book Name</label>
-            <input name="bookname" type="text" id="bookName" class="form-control" placeholder="Book Name" required
-                   autofocus>
+            <?php echo form_error('bookname'); ?>
+            <input name="bookname" type="text" id="bookName" class="form-control" placeholder="Book Name" required autofocus>
             <br>
             <!-- 选择图书的图片 -->
             <div class="form-group">
-                <label for="inputImg">Image input</label>
+                <label for="inputImg">Image(Within 1M)</label>
                 <input type="file" name="userfile" id="inputImg">
             </div>
             <br>
             <!-- 图书作者 -->
             <label for="bookAuthor" class="form-group">Book Author</label>
-            <input name="author" type="text" id="bookAuthor" class="form-control" placeholder="Book Author">
+            <?php echo form_error('author'); ?>
+            <input name="author" type="text" id="bookAuthor" class="form-control" placeholder="Book Author" required>
             <br>
             <!-- 图书种类 -->
             <label for="class" class="form-group">Book Author</label>
+            <?php echo form_error('class'); ?>
             <input name="class" type="text" id="class" class="form-control"
-                   placeholder="Book Class(More tags separated by spaces)">
+                   placeholder="Book Class(More tags separated by spaces)" required>
             <br>
             <!-- 图书简介 -->
             <div>
                 <label for="introduction" class="form-group">Book Introduction</label>
-            </div>
-            <div>
+                <?php echo form_error('introduction'); ?>
                 <textarea name="introduction" cols="60" rows="10" id="about"></textarea>
             </div>
             <br>

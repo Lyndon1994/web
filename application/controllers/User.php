@@ -20,12 +20,13 @@ class User extends CI_Controller
     public function index($username=FALSE){
         $this->user_model->is_login();
         if($username===FALSE) {
-            $data['user'] = $_SESSION['user'];
+            $data['userInfo'] = $_SESSION['user'];
             $data['books'] = $this->book_model->get_mine($_SESSION['user']->username);
             $data['ownbooks'] = $this->book_model->get_own($_SESSION['user']->username);
             $this->load->view('user/user', $data);
         }else{
-            $data['user'] = $this->user_model->get_user_by_username($username);
+            $data['userInfo'] = $this->user_model->get_user_by_username($username);
+            if ($data['userInfo']===FALSE) show_404();
             $data['books'] = $this->book_model->get_mine($username);
             $data['ownbooks'] = $this->book_model->get_own($username);
             $this->load->view('user/user', $data);
@@ -73,10 +74,11 @@ class User extends CI_Controller
     {
         $this->load->helper('form');
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('username', 'username', 'required');
-        $this->form_validation->set_rules('password', 'password', 'required');
-        $this->form_validation->set_rules('address', 'address', 'required');
-        $this->form_validation->set_rules('phone', 'phone', 'required');
+        $this->form_validation->set_rules('username', 'User Name', 'trim|required|valid_email');
+        $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]');
+        $this->form_validation->set_rules('passconf', 'Password Confirmation', 'trim|required|matches[password]');
+        $this->form_validation->set_rules('address', 'Address', 'trim|required');
+        $this->form_validation->set_rules('phone', 'Phone Number', 'trim|required');
 
         if ($this->form_validation->run() === FALSE) {
             $this->load->view('user/register');
@@ -84,14 +86,28 @@ class User extends CI_Controller
         } else {
             $name = $this->input->post('username');
             $password = $this->input->post('password');
-            $this->user_model->set_user();
             $user = $this->user_model->get_user($name, $password);
             if (count($user) > 0) {
-                $this->session->set_userdata('user', $user[0]);
-                redirect('/');
-            }else {
                 $data['tip'] = '你输入的用户名已被注册';
                 $this->load->view('user/register', $data);
+            }else {
+                $this->user_model->set_user();
+                $user = $this->user_model->get_user($name, $password);
+                $this->session->set_userdata('user', $user[0]);
+
+                //发送邮件
+                $this->load->library('email');
+
+                $this->email->from('wuhulinyi@126.com', '图书漂流网');
+                $this->email->to($name);
+
+                $this->email->subject('欢迎注册图书漂流网');
+                $this->email->message('欢迎您注册图书漂流网，您的账户为:'.$name."\n您的密码为:".$password);
+
+                $this->email->send(FALSE);
+
+                echo $this->email->print_debugger();
+                //redirect('/');
             }
         }
     }

@@ -119,7 +119,7 @@
         <div>
             <div>
                 <!-- 书籍的图片 -->
-                <img class="img-responsive col-md-2" src="<?php echo $book->image ?>"
+                <img class="img-responsive col-md-2" src="<?php echo base_url('source/images/books').'/'.$book->image ?>"
                      alt="<?php echo $book->bookname ?>" width="100" height="100">
             </div>
             <div col-md-3>
