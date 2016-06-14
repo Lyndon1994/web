@@ -53,6 +53,14 @@ class Book_model extends CI_Model{
     public function reservation($id){
         $sql = "update book set status = '预约中' , lender = ? where bookid=?";
         $this->db->query($sql, array($_SESSION['user']->username,$id));
+        //发送邮件通知书主
+        $this->load->library('email');
+        $this->email->from('wuhulinyi@126.com', '图书漂流网');
+        $own = $this->db->query("select owner,bookname from book,user WHERE bookid = ".$id)->unbuffered_row();
+        $this->email->to($own->owner);
+        $this->email->subject('【图书漂流网】有人预约您的图书');
+        $this->email->message('尊敬的用户，您好！'.$_SESSION['user']->username.'预约了您的图书:'.$own->book.'请尽快阅读，并邮寄给他（手机号：'.$_SESSION['user']->phone.'；地址：'.$_SESSION['user']->address.'），谢谢！');
+        $this->email->send();
     }
     
     public function reading($id){

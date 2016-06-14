@@ -97,17 +97,13 @@ class User extends CI_Controller
 
                 //发送邮件
                 $this->load->library('email');
-
                 $this->email->from('wuhulinyi@126.com', '图书漂流网');
                 $this->email->to($name);
-
                 $this->email->subject('欢迎注册图书漂流网');
                 $this->email->message('欢迎您注册图书漂流网，您的账户为:'.$name."\n您的密码为:".$password);
-
-                $this->email->send(FALSE);
-
-                echo $this->email->print_debugger();
-                //redirect('/');
+                $this->email->send();
+                //echo $this->email->print_debugger();
+                redirect('/');
             }
         }
     }
@@ -128,5 +124,28 @@ class User extends CI_Controller
         $this->user_model->is_manager();
         $this->user_model->change_credits($c,$username);
         redirect('/user/manage/');
+    }
+
+    public function test(){
+        $this->load->library('email');
+//        $config['protocol'] = 'smtp';
+//        $config['smtp_host'] = 'ssl://smtp.126.com';
+//        $config['smtp_user'] = 'wuhulinyi@126.com';
+//        $config['smtp_pass'] = 'lyly5201';//去QQ邮箱设置开启smtp
+//        $config['smtp_port'] = 465;
+//        $config['smtp_timeout'] = 30;
+//        $config['mailtype'] = 'text';
+//        $config['charset'] = 'utf-8';
+//        $config['wordwrap'] = TRUE;
+//        $this->email->initialize($config);
+        $this->email->set_newline("\r\n");
+        $config['crlf'] = "\r\n";
+        $this->email->from('wuhulinyi@126.com', 'Vic');
+        $this->email->to('wuhulinyi@126.com');
+
+        $this->email->subject('Email Test');
+        $this->email->message('Testing the email class.');
+        $this->email->send(FALSE);
+        echo $this->email->print_debugger();
     }
 }
