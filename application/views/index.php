@@ -67,6 +67,7 @@
                                     <li><a href="<?php echo site_url('book/add'); ?>">Share my books</a></li>
                                     <li><a href="<?php echo site_url('user'); ?>">My books</a></li>
                                     <li><a href="<?php echo site_url('user/history'); ?>">History</a></li>
+                                    <li><a href="<?php echo site_url('user/modify'); ?>">Modify Information</a></li>
                                     <?php if ($user->role == 'admin') { ?>
                                         <li><a href="<?php echo site_url('book/manage'); ?>">Manage Books</a></li>
                                         <li><a href="<?php echo site_url('user/manage'); ?>">Manage Users</a></li>

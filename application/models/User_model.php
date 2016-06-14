@@ -42,6 +42,18 @@ class User_model extends CI_Model
         return FALSE;
     }
 
+    public function modify_user()
+    {
+            $password = $this->input->post('password');
+            $address = $this->input->post('address');
+            $phone = $this->input->post('phone');
+
+        $name = $_SESSION['user']->username;
+
+        $sql = "update user set password = ?, address =?, phone = ? where username = ?";
+        $this->db->query($sql, array($password,$address,$phone,$name));
+    }
+    
     public function set_user()
     {
         $data = array(

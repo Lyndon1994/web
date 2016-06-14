@@ -17,16 +17,17 @@ class User extends CI_Controller
 
     }
 
-    public function index($username=FALSE){
+    public function index($username = FALSE)
+    {
         $this->user_model->is_login();
-        if($username===FALSE) {
+        if ($username === FALSE) {
             $data['userInfo'] = $_SESSION['user'];
             $data['books'] = $this->book_model->get_mine($_SESSION['user']->username);
             $data['ownbooks'] = $this->book_model->get_own($_SESSION['user']->username);
             $this->load->view('user/user', $data);
-        }else{
+        } else {
             $data['userInfo'] = $this->user_model->get_user_by_username($username);
-            if ($data['userInfo']===FALSE) show_404();
+            if ($data['userInfo'] === FALSE) show_404();
             $data['books'] = $this->book_model->get_mine($username);
             $data['ownbooks'] = $this->book_model->get_own($username);
             $this->load->view('user/user', $data);
@@ -90,7 +91,7 @@ class User extends CI_Controller
             if (count($user) > 0) {
                 $data['tip'] = '你输入的用户名已被注册';
                 $this->load->view('user/register', $data);
-            }else {
+            } else {
                 $this->user_model->set_user();
                 $user = $this->user_model->get_user($name, $password);
                 $this->session->set_userdata('user', $user[0]);
@@ -100,7 +101,7 @@ class User extends CI_Controller
                 $this->email->from('wuhulinyi@126.com', '图书漂流网');
                 $this->email->to($name);
                 $this->email->subject('欢迎注册图书漂流网');
-                $this->email->message('欢迎您注册图书漂流网，您的账户为:'.$name."\n您的密码为:".$password);
+                $this->email->message('欢迎您注册图书漂流网，您的账户为:' . $name . "\n您的密码为:" . $password);
                 $this->email->send();
                 //echo $this->email->print_debugger();
                 redirect('/');
@@ -108,44 +109,49 @@ class User extends CI_Controller
         }
     }
 
-    public function history(){
-        $this->user_model->is_login();
-        $data['logs'] = $this->log_model->get_log($_SESSION['user']->username);
-        $this->load->view("user/history",$data);
-    }
-    
-    public function manage(){
-        $this->user_model->is_manager();
-        $data['users'] = $this->user_model->get_all_user();
-        $this->load->view('user/manage',$data);
+    public function modify()
+    {
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]');
+        $this->form_validation->set_rules('passconf', 'Password Confirmation', 'trim|required|matches[password]');
+        $this->form_validation->set_rules('address', 'Address', 'trim|required');
+        $this->form_validation->set_rules('phone', 'Phone Number', 'trim|required');
+
+        if ($this->form_validation->run() === FALSE) {
+            $this->load->view('user/modify');
+
+        } else {
+            $name = $_SESSION['user']->username;
+            $this->user_model->modify_user();
+            $user = $this->user_model->get_user_by_username($name);
+            unset($_SESSION['user']);
+            $this->session->set_userdata('user', $user);
+            
+            redirect('/user/');
+
+        }
     }
 
-    public function change_credits($c,$username){
+    public function history()
+    {
+        $this->user_model->is_login();
+        $data['logs'] = $this->log_model->get_log($_SESSION['user']->username);
+        $this->load->view("user/history", $data);
+    }
+
+    public function manage()
+    {
         $this->user_model->is_manager();
-        $this->user_model->change_credits($c,$username);
+        $data['users'] = $this->user_model->get_all_user();
+        $this->load->view('user/manage', $data);
+    }
+
+    public function change_credits($c, $username)
+    {
+        $this->user_model->is_manager();
+        $this->user_model->change_credits($c, $username);
         redirect('/user/manage/');
     }
 
-    public function test(){
-        $this->load->library('email');
-//        $config['protocol'] = 'smtp';
-//        $config['smtp_host'] = 'ssl://smtp.126.com';
-//        $config['smtp_user'] = 'wuhulinyi@126.com';
-//        $config['smtp_pass'] = 'lyly5201';//去QQ邮箱设置开启smtp
-//        $config['smtp_port'] = 465;
-//        $config['smtp_timeout'] = 30;
-//        $config['mailtype'] = 'text';
-//        $config['charset'] = 'utf-8';
-//        $config['wordwrap'] = TRUE;
-//        $this->email->initialize($config);
-//        $this->email->set_newline("\r\n");
-//        $config['crlf'] = "\r\n";
-        $this->email->from('wuhulinyi@126.com', 'Vic');
-        $this->email->to('ahlinyi@qq.com');
-
-        $this->email->subject('Email Test');
-        $this->email->message('Testing the email class.');
-        $this->email->send(FALSE);
-        echo $this->email->print_debugger();
-    }
 }
