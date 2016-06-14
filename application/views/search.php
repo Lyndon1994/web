@@ -110,7 +110,7 @@
         <?php $i=1; foreach ($users as $user){?>
             <tr>
                 <td><?php echo $i++;?></td>
-                <td><a href="<?php echo site_url('user').'/'.$user->username;?>"><?php echo $user->username;?></a></td>
+                <td><a href="<?php echo site_url('user/info').'/'.$user->username;?>"><?php echo $user->username;?></a></td>
                 <td><?php echo $user->phone;?></td>
                 <td><?php echo $user->address;?></td>
                 <td><?php echo $user->role;?></td>
