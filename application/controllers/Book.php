@@ -21,14 +21,18 @@ class Book extends CI_Controller
     public function index()
     {
         $data['books'] = $this->book_model->get_book();
+        $this->load->view('common/header');
         $this->load->view('index', $data);
+        $this->load->view('common/footer');
     }
 
     public function manage()
     {
         $this->user_model->is_manager();
         $data['books'] = $this->book_model->get_book();
+        $this->load->view('common/header');
         $this->load->view('book/manage', $data);
+        $this->load->view('common/footer');
     }
 
     /**
@@ -45,7 +49,9 @@ class Book extends CI_Controller
         $books = $this->book_model->get_book($id);
         $data['book'] = $books[0];
         $data['comments'] = $this->comments_model->get_comments($id);
+        $this->load->view('common/header');
         $this->load->view('book/introduction', $data);
+        $this->load->view('common/footer');
     }
 
     public function comment()
@@ -105,7 +111,9 @@ class Book extends CI_Controller
         $this->form_validation->set_rules('introduction', 'Introduction', 'required');
 
         if ($this->form_validation->run() === FALSE) {
+            $this->load->view('common/header');
             $this->load->view('book/add');
+            $this->load->view('common/footer');
         } else {
             $config['upload_path'] = './source/images/books';
             $config['allowed_types'] = 'gif|jpg|png';
@@ -118,7 +126,9 @@ class Book extends CI_Controller
             if (!$this->upload->do_upload('userfile')) {
                 $error = array('tip' => "图片上传出错\n" . $this->upload->display_errors());
 
+                $this->load->view('common/header');
                 $this->load->view('book/add', $error);
+                $this->load->view('common/footer');
             } else {
                 $image = $this->upload->data('file_name');
                 $this->book_model->set_book($image);
@@ -134,7 +144,9 @@ class Book extends CI_Controller
     {
         $this->user_model->is_login();
         $data['logs'] = $this->log_model->get_book_log($id);
+        $this->load->view('common/header');
         $this->load->view("book/drifting", $data);
+        $this->load->view('common/footer');
     }
 
     public function search()
@@ -145,6 +157,8 @@ class Book extends CI_Controller
         //搜索用户
         $data['users'] = $this->user_model->search();
 
+        $this->load->view('common/header');
         $this->load->view("search", $data);
+        $this->load->view('common/footer');
     }
 }

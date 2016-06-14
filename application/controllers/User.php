@@ -24,13 +24,17 @@ class User extends CI_Controller
             $data['userInfo'] = $_SESSION['user'];
             $data['books'] = $this->book_model->get_mine($_SESSION['user']->username);
             $data['ownbooks'] = $this->book_model->get_own($_SESSION['user']->username);
+            $this->load->view('common/header');
             $this->load->view('user/user', $data);
+            $this->load->view('common/footer');
         } else {
             $data['userInfo'] = $this->user_model->get_user_by_username($username);
             if ($data['userInfo'] === FALSE) show_404();
             $data['books'] = $this->book_model->get_mine($username);
             $data['ownbooks'] = $this->book_model->get_own($username);
+            $this->load->view('common/header');
             $this->load->view('user/user', $data);
+            $this->load->view('common/footer');
         }
     }
 
@@ -42,7 +46,9 @@ class User extends CI_Controller
         $this->form_validation->set_rules('password', 'password', 'required');
 
         if ($this->form_validation->run() === FALSE) {
+            $this->load->view('common/header');
             $this->load->view('user/login');
+            $this->load->view('common/footer');
         } else {
             $name = $this->input->post('username');
             $password = $this->input->post('password');
@@ -54,11 +60,15 @@ class User extends CI_Controller
                     redirect('/');
                 } else {
                     $data['tip'] = '你输入的用户名或密码有误';
+                    $this->load->view('common/header');
                     $this->load->view('user/login', $data);
+                    $this->load->view('common/footer');
                 }
             } else {
                 $data['tip'] = '你输入的验证码有误，请重新输入';
+                $this->load->view('common/header');
                 $this->load->view('user/login', $data);
+                $this->load->view('common/footer');
             }
         }
     }
@@ -82,7 +92,9 @@ class User extends CI_Controller
         $this->form_validation->set_rules('phone', 'Phone Number', 'trim|required');
 
         if ($this->form_validation->run() === FALSE) {
+            $this->load->view('common/header');
             $this->load->view('user/register');
+            $this->load->view('common/footer');
 
         } else {
             $name = $this->input->post('username');
@@ -90,7 +102,9 @@ class User extends CI_Controller
             $user = $this->user_model->get_user($name, $password);
             if (count($user) > 0) {
                 $data['tip'] = '你输入的用户名已被注册';
+                $this->load->view('common/header');
                 $this->load->view('user/register', $data);
+                $this->load->view('common/footer');
             } else {
                 $this->user_model->set_user();
                 $user = $this->user_model->get_user($name, $password);
@@ -119,7 +133,9 @@ class User extends CI_Controller
         $this->form_validation->set_rules('phone', 'Phone Number', 'trim|required');
 
         if ($this->form_validation->run() === FALSE) {
+            $this->load->view('common/header');
             $this->load->view('user/modify');
+            $this->load->view('common/footer');
 
         } else {
             $name = $_SESSION['user']->username;
@@ -137,14 +153,18 @@ class User extends CI_Controller
     {
         $this->user_model->is_login();
         $data['logs'] = $this->log_model->get_log($_SESSION['user']->username);
+        $this->load->view('common/header');
         $this->load->view("user/history", $data);
+        $this->load->view('common/footer');
     }
 
     public function manage()
     {
         $this->user_model->is_manager();
         $data['users'] = $this->user_model->get_all_user();
+        $this->load->view('common/header');
         $this->load->view('user/manage', $data);
+        $this->load->view('common/footer');
     }
 
     public function change_credits($c, $username)
