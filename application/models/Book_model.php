@@ -38,7 +38,8 @@ class Book_model extends CI_Model{
     public function set_book($image)
     {
         $data = array(
-			'username' => $_SESSION['user']->username,
+            'username' => $_SESSION['user']->username,
+            'owner' => $_SESSION['user']->username,
 			'bookname' => $this->input->post('bookname'),
 			'author' => $this->input->post('author'),
 			'introduction' => $this->input->post('introduction'),

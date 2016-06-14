@@ -138,10 +138,10 @@ class User extends CI_Controller
 //        $config['charset'] = 'utf-8';
 //        $config['wordwrap'] = TRUE;
 //        $this->email->initialize($config);
-        $this->email->set_newline("\r\n");
-        $config['crlf'] = "\r\n";
+//        $this->email->set_newline("\r\n");
+//        $config['crlf'] = "\r\n";
         $this->email->from('wuhulinyi@126.com', 'Vic');
-        $this->email->to('wuhulinyi@126.com');
+        $this->email->to('ahlinyi@qq.com');
 
         $this->email->subject('Email Test');
         $this->email->message('Testing the email class.');

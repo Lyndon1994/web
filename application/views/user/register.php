@@ -88,9 +88,7 @@
             <!-- 检查密码是否相同 -->
             <script type="text/javascript">
                 function checkPasswaord() {
-                    var n1 = document.ReInputPassword;
-                    var n2 = document.inputPassword;
-                    alert(n1 + n2);
+                    
                 }
             </script>
             <br>
