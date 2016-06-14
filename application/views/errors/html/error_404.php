@@ -42,7 +42,7 @@
         #main {
             width: 1000px;
             margin: 0 auto;
-            background: url('/bookcrossing/source/images/404.jpg') no-repeat left top;
+            background: url('/source/images/404.jpg') no-repeat left top;
             font-size: 1.125em;
             overflow: hidden;
             position: relative;
@@ -164,13 +164,13 @@
     <!-- content -->
     <div id="content">
         <ul class="nav">
-            <li class="home"><a href="#">Home Page</a></li>
+            <li class="home"><a href="/">Home Page</a></li>
 <!--            <li class="site_map"><a href="#">Site Map</a></li>-->
 <!--            <li class="search"><a href="#">Website Search</a></li>-->
         </ul>
         <p>Hey, you're early! You don't belong here - at least not today. Besides, what you're looking for is not here
             anyways.<br/>
-            So why don't you go to our <a href="#">homepage</a>.</p>
+            So why don't you go to our <a href="/">homepage</a>.</p>
     </div>
 </div>
 </body>

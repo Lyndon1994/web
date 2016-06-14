@@ -10,7 +10,7 @@
     <meta name="description" content="图书漂流">
     <meta name="author" content="linyi zhoujiawei">
     <link rel="icon" href="<?php echo base_url(); ?>source/images/book.ico">
-    <title>Book Share<?php echo base_url(); ?></title>
+    <title>Book Share</title>
     <!-- Bootstrap core CSS -->
     <link href="<?php echo base_url(); ?>source/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
