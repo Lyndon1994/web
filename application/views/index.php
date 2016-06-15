@@ -7,39 +7,77 @@
         <h3>Books is flying here! Find your own books! Share your books!</h3>
     </div>
 </div>
-<!-- Marketing messaging and featurettes
-  ==================================================
-  <!-- Wrap the rest of the page in another container to center all the content.
 
-  <div class="container marketing">
-
+<div id="body">
     <!-- 分享书籍的显示 -->
-<?php foreach ($books as $book) { ?>
-    <div class="container">
-        <!-- 第一本书的介绍 -->
-        <hr class="featurette-divider" align="center">
-        <div>
+    <?php foreach ($books as $book) { ?>
+        <div class="container">
+            <!-- 第一本书的介绍 -->
+            <hr class="featurette-divider" align="center">
             <div>
-                <!-- 书籍的图片 -->
-                <img class="img-responsive col-md-2" src="<?php echo base_url('source/images/books').'/'.$book->image ?>"
-                     alt="<?php echo $book->bookname ?>" width="100" height="100">
-            </div>
-            <div col-md-3>
-                <!-- 书籍的标题 -->
-                <h2 class="featurette-heading"><a
-                        href="<?php echo site_url('book') . '/' . $book->bookid; ?>"><?php echo $book->bookname ?></a>
-                    <!-- 书籍的作者 -->
-                    <span class="label label-info"><?php echo $book->author ?></span>
-                    <span class="label label-default"><?php echo $book->class ?></span>
-                    <span class="label label-primary"><?php echo $book->status ?></span>
-                    <?php if ($book->status == '在架上'||$book->status == '在读') { ?>
-                        <span><a href="<?php echo site_url('book/borrow').'/'.$book->bookid; ?>" class="btn btn-warning" style="color: blue" role="button">预约</a></span>
-                    <?php } ?>
-                </h2>
-                <!-- 书籍的介绍 -->
-                <p class="lead"><?php echo $book->introduction ?></p>
+                <div>
+                    <!-- 书籍的图片 -->
+                    <img class="img-responsive col-md-2"
+                         src="<?php echo base_url('source/images/books') . '/' . $book->image ?>"
+                         alt="<?php echo $book->bookname ?>" width="100" height="100">
+                </div>
+                <div col-md-3>
+                    <!-- 书籍的标题 -->
+                    <h2 class="featurette-heading"><a
+                            href="<?php echo site_url('book') . '/' . $book->bookid; ?>"><?php echo $book->bookname ?></a>
+                        <!-- 书籍的作者 -->
+                        <span class="label label-info"><?php echo $book->author ?></span>
+                        <span class="label label-default"><?php echo $book->class ?></span>
+                        <span class="label label-primary"><?php echo $book->status ?></span>
+                        <?php if ($book->status == '在架上' || $book->status == '在读') { ?>
+                            <span><a href="<?php echo site_url('book/borrow') . '/' . $book->bookid; ?>"
+                                     class="btn btn-warning" style="color: blue" role="button">预约</a></span>
+                        <?php } ?>
+                    </h2>
+                    <!-- 书籍的介绍 -->
+                    <p class="lead"><?php echo $book->introduction ?></p>
+                </div>
             </div>
         </div>
-    </div>
-<?php } ?>
+    <?php } ?>
+</div>
+<div class="nodata"></div>
+<script src="<?php echo base_url(); ?>source/js/jquery.min.js"></script>
+<script>
+    $(function () {
+        var winH = $(window).height(); //页面可视区域高度
+        var i = 1; //设置当前页数
+        $(window).scroll(function () {
+            var pageH = $(document.body).height();
+            var scrollT = $(window).scrollTop(); //滚动条top
+            var aa = (pageH - winH - scrollT) / winH;
+            if (aa < 0.02) {
+                $.getJSON("/book/more", {page: i}, function (json) {
+                    if (json) {
+                        var str = "";
+                        $.each(json, function (index, array) {
+                            str += "<div class='container'> <hr class='featurette-divider' align='center'> <div> <div> <img class='img-responsive col-md-2' src='/source/images/books/"+array['image']+"' alt='"+ array['bookname'] +"' width='100' height='100'> </div> <div col-md-3>";
+                            str += "<h2 class='featurette-heading'><a href='/book/" + array['bookid'] +"'>" + array['bookname'] + "</a>";
+                            str += "<span class='label label-info'>"+ array['author'] + "</span>";
+                            str += "<span class='label label-default'>"+ array['class'] +"</span>";
+                            str += "<span class='label label-primary'>"+ array['status'] +"</span>";
+                            if (array['status'] == '在架上' || array['status'] == '在读') {
+                                str+="<span><a href='/book/borrow/"+ array['bookid'] + "' class='btn btn-warning' style='color: blue' role='button'>预约</a></span>";
+                            };
+                            str+="</h2>";
+                            str+="<p class='lead'>"+ array['introduction'] +"</p> </div> </div> </div>";
+                            
+                            $("#body").append(str);
+                        });
+                        i++;
+                    } else {
+                        $(".nodata").show().html("别滚动了，已经到底了。。。");
+                        return false;
+                    }
+                });
+            }
+        });
+    });
+
+</script>
 

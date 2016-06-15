@@ -34,15 +34,18 @@ class Book extends CI_Controller
         $this->load->view('book/manage', $data);
         $this->load->view('common/footer');
     }
+    
 
     /**
-     * 图书列表
-     * @param int $num
+     * 滚动加载
      */
-    public function show_list($num = 1)
-    {
+    public function more(){
+        $page = intval($_GET['page']);  //获取请求的页数
+        $start = $page*5;
+        $sql="select * from book ORDER BY bookid DESC limit $start,5";
+        $arr = $this->db->query($sql)->result_array();
+        echo json_encode($arr);  //转换为json数据输出
     }
-
 
     public function introduction($id)
     {

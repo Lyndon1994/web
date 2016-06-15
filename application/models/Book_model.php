@@ -5,7 +5,8 @@ class Book_model extends CI_Model{
     {
         if ($bookid === FALSE)
         {
-            $query = $this->db->get('book');
+            $sql="select * from book ORDER BY bookid DESC limit 5";
+            $query = $this->db->query($sql);
             return $query->result();
         }
 

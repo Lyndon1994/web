@@ -1,4 +1,6 @@
-
+<!--引入wangEditor.css-->
+<link rel="stylesheet" type="text/css" href="/source/css/font-awesome.css">
+<link rel="stylesheet" type="text/css" href="/source/css/wangEditor.min.css">
 <!-- 显示的内容 -->
 <br>
 <br>
@@ -14,7 +16,9 @@
                 <br>
                 <br>
                 <!-- 书本的图片 -->
-                <img class="img-thumbnail col-md-5" src="<?php echo base_url('source/images/books').'/'.$book->image ?>" alt="<?php echo $book->bookname ?>"
+                <img class="img-thumbnail col-md-5"
+                     src="<?php echo base_url('source/images/books') . '/' . $book->image ?>"
+                     alt="<?php echo $book->bookname ?>"
                      width="600" height="600">
                 <!-- 书本的介绍 -->
                 <div class="panel panel-info">
@@ -59,7 +63,7 @@
                     <?php foreach ($comments as $comment) { ?>
                         <div class="panel panel-info">
                             <div class="panel-heading pull-right" style="align-content: right;">
-                                <a href="<?php echo site_url('user/info').'/'.$comment->username;?>"><?php echo $comment->username; ?></a>
+                                <a href="<?php echo site_url('user/info') . '/' . $comment->username; ?>"><?php echo $comment->username; ?></a>
                                 <label>
                                     <?php echo $comment->time; ?>
                                 </label>
@@ -80,16 +84,19 @@
                 <form action="<?php echo site_url('book/comment'); ?>" method="post">
                     <input name="bookid" type="hidden" value="<?php echo $book->bookid; ?>"/>
                     <label>
-                        <textarea name="content" rows="10" cols="100"></textarea>
+                        <textarea id="textarea" name="content" rows="10" cols="100"
+                                  style="overflow:scroll; max-height:300px"></textarea>
                     </label>
                     <br>
                     <input type="submit" value="submit comments"/>
                 </form>
                 <br>
+
                 <br>
                 <!-- 租借书的按钮 -->
-                <?php if ($book->status == '在架上'||$book->status == '在读') { ?>
-                    <p><a href="<?php echo site_url('book/borrow').'/'.$book->bookid; ?>" class="btn btn-warning" style="color: blue" role="button">预约</a></p>
+                <?php if ($book->status == '在架上' || $book->status == '在读') { ?>
+                    <p><a href="<?php echo site_url('book/borrow') . '/' . $book->bookid; ?>" class="btn btn-warning"
+                          style="color: blue" role="button">预约</a></p>
                 <?php } ?>
             </div>
             <!-- /.col-lg-4 -->
@@ -99,4 +106,14 @@
     <!-- 书籍介绍 -->
 </div>
 
-
+<!--引入jquery和wangEditor.js-->   <!--注意：javascript必须放在body最后，否则可能会出现问题-->
+<script type="text/javascript" src="/source/js/jquery.min.js"></script>
+<script type="text/javascript" src="/source/js/wangEditor.min.js"></script>
+<!--这里引用jquery和wangEditor.js-->
+<script type="text/javascript">
+    // 获取元素
+    var textarea = document.getElementById('textarea');
+    // 生成编辑器
+    var editor = new wangEditor(textarea);
+    editor.create();
+</script>

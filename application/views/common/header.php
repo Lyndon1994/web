@@ -13,7 +13,7 @@
     <!-- Bootstrap core CSS -->
     <link href="<?php echo base_url(); ?>source/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="<?php echo base_url(); ?>source/carousel.css" rel="stylesheet">
+    <link href="<?php echo base_url(); ?>source/css/carousel.css" rel="stylesheet">
 </head>
 
 <body>
