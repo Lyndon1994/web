@@ -115,5 +115,13 @@
     var textarea = document.getElementById('textarea');
     // 生成编辑器
     var editor = new wangEditor(textarea);
+
+    // 上传图片（举例）
+    editor.config.uploadImgUrl = '/util/upload';
+
+    // 配置自定义参数（举例）
+    editor.config.uploadParams = {
+    };
+    
     editor.create();
 </script>

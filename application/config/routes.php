@@ -57,6 +57,8 @@ $route['book/(:any)'] = 'book/$1';
 $route['user/info/(:any)'] = 'user/index/$1';
 $route['user/(:any)'] = 'user/$1';
 
+$route['util/(:any)'] = 'util/$1';
+
 $route['(:any)'] = '$1';
 $route['default_controller'] = 'book';
 $route['404_override'] = '';

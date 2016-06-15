@@ -1,6 +1,5 @@
 
-<!-- 检查表单是否完整 -->
-<script src="<?php echo base_url();?>source/js/bootstrap.min.js"></script>
+
 <!-- 登陆 -->
 <div class="container">
     <center>
@@ -36,4 +35,3 @@
         </form>
     </center>
 </div>
-
