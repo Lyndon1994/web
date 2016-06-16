@@ -18,8 +18,8 @@
                 <div>
                     <!-- 书籍的图片 -->
                     <img class="img-responsive col-md-2"
-                         src="<?php echo base_url('source/images/books') . '/' . $book->image ?>"
-                         alt="<?php echo $book->bookname ?>" width="100" height="100">
+                         src="<?php echo $book->image; ?>"
+                         alt="<?php echo $book->bookname; ?>" width="100" height="100">
                 </div>
                 <div col-md-3>
                     <!-- 书籍的标题 -->
@@ -41,7 +41,7 @@
         </div>
     <?php } ?>
 </div>
-<div class="nodata"></div>
+<div id="nodata" class="container"></div>
 <script src="<?php echo base_url(); ?>source/js/jquery.min.js"></script>
 <script>
     $(function () {
@@ -51,12 +51,12 @@
             var pageH = $(document.body).height();
             var scrollT = $(window).scrollTop(); //滚动条top
             var aa = (pageH - winH - scrollT) / winH;
-            if (aa < 0.02) {
+            if (aa < 0.01) {
                 $.getJSON("/book/more", {page: i}, function (json) {
-                    if (json) {
+                    if (json!='') {
                         var str = "";
                         $.each(json, function (index, array) {
-                            str += "<div class='container'> <hr class='featurette-divider' align='center'> <div> <div> <img class='img-responsive col-md-2' src='/source/images/books/"+array['image']+"' alt='"+ array['bookname'] +"' width='100' height='100'> </div> <div col-md-3>";
+                            str += "<div class='container'> <hr class='featurette-divider' align='center'> <div> <div> <img class='img-responsive col-md-2' src='"+array['image']+"' alt='"+ array['bookname'] +"' width='100' height='100'> </div> <div col-md-3>";
                             str += "<h2 class='featurette-heading'><a href='/book/" + array['bookid'] +"'>" + array['bookname'] + "</a>";
                             str += "<span class='label label-info'>"+ array['author'] + "</span>";
                             str += "<span class='label label-default'>"+ array['class'] +"</span>";
@@ -66,12 +66,11 @@
                             };
                             str+="</h2>";
                             str+="<p class='lead'>"+ array['introduction'] +"</p> </div> </div> </div>";
-                            
-                            $("#body").append(str);
                         });
+                        $("#body").append(str);
                         i++;
                     } else {
-                        $(".nodata").show().html("别滚动了，已经到底了。。。");
+                        $("#nodata").html("<div class='alert alert-warning' role='alert'>别滚动了，已经到底了。。。</div>");
                         return false;
                     }
                 });

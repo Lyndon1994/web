@@ -116,28 +116,40 @@ class Book extends CI_Controller
         if ($this->form_validation->run() === FALSE) {
             $this->load->view('common/header');
             $this->load->view('book/add');
-            $this->load->view('common/footer');
         } else {
-            $config['upload_path'] = './source/images/books';
-            $config['allowed_types'] = 'gif|jpg|png';
-            $config['file_name'] = 'book' . $this->input->post('bookid');
-            $config['overwrite'] = TRUE;
-            $config['max_size'] = 1000;
-            $config['max_width'] = 1024;
-            $config['max_height'] = 768;
-            $this->load->library('upload', $config);
-            if (!$this->upload->do_upload('userfile')) {
-                $error = array('tip' => "图片上传出错\n" . $this->upload->display_errors());
+            if (!empty($_FILES['userfile']['tmp_name'])) {
+                $config['upload_path'] = './source/images/books';
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['file_name'] = 'book' . $this->input->post('bookid');
+                $config['overwrite'] = TRUE;
+                $config['max_size'] = 1000;
+                $config['max_width'] = 1024;
+                $config['max_height'] = 768;
+                $this->load->library('upload', $config);
+                if (!$this->upload->do_upload('userfile')) {
+                    $error = array('tip' => "图片上传出错\n" . $this->upload->display_errors());
 
-                $this->load->view('common/header');
-                $this->load->view('book/add', $error);
-                $this->load->view('common/footer');
-            } else {
-                $image = $this->upload->data('file_name');
+                    $this->load->view('common/header');
+                    $this->load->view('book/add', $error);
+                } else {
+                    
+                    $image =base_url('source/images/books') . '/' . $this->upload->data('file_name');
+                    $this->book_model->set_book($image);
+                    $this->user_model->change_credits(50);
+                    redirect('/');
+                }
+            }else if(!empty($this->input->post('webimage'))){
+                $image = $this->input->post('webimage');
                 $this->book_model->set_book($image);
                 $this->user_model->change_credits(50);
                 redirect('/');
+            }else{
+                $error = array('tip' => "请上传图片");
+
+                $this->load->view('common/header');
+                $this->load->view('book/add', $error);
             }
+
 
 
         }

@@ -17,8 +17,8 @@
                 <br>
                 <!-- 书本的图片 -->
                 <img class="img-thumbnail col-md-5"
-                     src="<?php echo base_url('source/images/books') . '/' . $book->image ?>"
-                     alt="<?php echo $book->bookname ?>"
+                     src="<?php echo $book->image; ?>"
+                     alt="<?php echo $book->bookname; ?>"
                      width="600" height="600">
                 <!-- 书本的介绍 -->
                 <div class="panel panel-info">
