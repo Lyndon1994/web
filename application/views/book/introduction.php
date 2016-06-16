@@ -68,7 +68,7 @@
                                     <?php echo $comment->time; ?>
                                 </label>
                             </div>
-                            <div class="panel-body">
+                            <div class="panel-body" style="text-align: left;">
                                 <p style="text-align: left;">
                                     <?php echo $comment->content; ?>
                                 </p>
