@@ -42,31 +42,36 @@ class User extends CI_Controller
     {
         $this->load->helper('form');
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('username', 'username', 'required');
-        $this->form_validation->set_rules('password', 'password', 'required');
-
+        $this->form_validation->set_rules('username', 'Email', 'trim|required');
+        $this->form_validation->set_rules('password', 'Password', 'trim|required');
+        $this->form_validation->set_rules('validate', 'Captcha', array(
+            'required',
+            array(
+                'validate',
+                function () {
+                    $value = $this->input->post('validate');
+                    if (strtolower(trim($value)) == $_SESSION['code'])
+                        return TRUE;
+                    return FALSE;
+                })
+        ), array('validate' => '验证码输入错误'));
+        
         if ($this->form_validation->run() === FALSE) {
             $this->load->view('common/header');
             $this->load->view('user/login');
         } else {
             $name = $this->input->post('username');
             $password = $this->input->post('password');
-            $validate = $this->input->post('validate');
-            if ($_SESSION['code'] == $validate) {
-                $user = $this->user_model->get_user($name, $password);
-                if (count($user) > 0) {
-                    $this->session->set_userdata('user', $user[0]);
-                    redirect('/');
-                } else {
-                    $data['tip'] = '你输入的用户名或密码有误';
-                    $this->load->view('common/header');
-                    $this->load->view('user/login', $data);
-                }
+            $user = $this->user_model->get_user($name, $password);
+            if (count($user) > 0) {
+                $this->session->set_userdata('user', $user[0]);
+                redirect('/');
             } else {
-                $data['tip'] = '你输入的验证码有误，请重新输入';
+                $data['tip'] = '你输入的用户名或密码有误';
                 $this->load->view('common/header');
                 $this->load->view('user/login', $data);
             }
+
         }
     }
 
@@ -82,7 +87,8 @@ class User extends CI_Controller
     {
         $this->load->helper('form');
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('username', 'User Name', 'trim|required|valid_email');
+        $this->form_validation->set_rules('nickname', 'User Name', 'trim|required|min_length[1]');
+        $this->form_validation->set_rules('username', 'User Email', 'trim|required|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]');
         $this->form_validation->set_rules('passconf', 'Password Confirmation', 'trim|required|matches[password]');
         $this->form_validation->set_rules('address', 'Address', 'trim|required');
@@ -113,7 +119,7 @@ class User extends CI_Controller
                 $this->email->message('欢迎您注册图书漂流网，您的账户为:' . $name . "\n您的密码为:" . $password);
                 $this->email->send();
                 //echo $this->email->print_debugger();
-                redirect('/');
+                redirect('/user/');
             }
         }
     }
@@ -122,6 +128,7 @@ class User extends CI_Controller
     {
         $this->load->helper('form');
         $this->load->library('form_validation');
+        $this->form_validation->set_rules('nickname', 'User Name', 'trim|required|min_length[1]');
         $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]');
         $this->form_validation->set_rules('passconf', 'Password Confirmation', 'trim|required|matches[password]');
         $this->form_validation->set_rules('address', 'Address', 'trim|required');
@@ -137,7 +144,7 @@ class User extends CI_Controller
             $user = $this->user_model->get_user_by_username($name);
             unset($_SESSION['user']);
             $this->session->set_userdata('user', $user);
-            
+
             redirect('/user/');
 
         }
@@ -168,4 +175,53 @@ class User extends CI_Controller
         redirect('/user/manage/');
     }
 
+    /**
+     * 找回密码
+     */
+    public function get_password()
+    {
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+        $name = $this->input->post('username');
+        if ($name == "") {
+            $this->load->view('common/header');
+            $this->load->view('user/getpass');
+        } else {
+            $this->form_validation->set_rules('username', 'Email', 'required');
+            $this->form_validation->set_rules('validate', 'Captcha', array(
+                'required',
+                array(
+                    'validate',
+                    function () {
+                        $value = $this->input->post('validate');
+                        if (strtolower(trim($value)) == $_SESSION['code'])
+                            return TRUE;
+                        return FALSE;
+                    })
+            ), array('validate' => '验证码输入错误'));
+
+            if ($this->form_validation->run() === FALSE) {
+                $this->load->view('common/header');
+                $this->load->view('user/getpass');
+            } else {
+                $user = $this->user_model->get_user_by_username($name);
+                if ($user == FALSE) {
+                    $data['error'] = '用户不存在！';
+                    $this->load->view('common/header');
+                    $this->load->view('user/getpass', $data);
+                } else {
+                    //发送邮件
+                    $this->load->library('email');
+                    $this->email->from('wuhulinyi@126.com', '图书漂流网');
+                    $this->email->to($name);
+                    $this->email->subject('【图书漂流网】找回密码');
+                    $this->email->message('您的账户为:' . $name . "\n您的密码为:" . $user->password);
+                    $this->email->send();
+                    $data['success'] = '邮件已发送，请查看您的邮箱！';
+                    $this->load->view('common/header');
+                    $this->load->view('user/getpass', $data);
+                }
+            }
+        }
+    }
 }

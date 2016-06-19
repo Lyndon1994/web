@@ -42,7 +42,6 @@
     <?php } ?>
 </div>
 <div id="nodata" class="container"></div>
-<script src="<?php echo base_url(); ?>source/js/jquery.min.js"></script>
 <script>
     $(function () {
         var winH = $(window).height(); //页面可视区域高度

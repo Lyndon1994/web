@@ -2,11 +2,13 @@
 <h2 style="text-align: center;">Users</h2>
 <br>
 <div class="container">
+    <?php if (count($users) > 0){?>
     <table class="table table-striped">
         <tr>
             <!-- 流水号 -->
             <th>No.</th>
             <th>User name</th>
+            <th>User email</th>
             <th>Phone</th>
             <th>Address</th>
             <th>role</th>
@@ -18,7 +20,8 @@
         <?php $i=1; foreach ($users as $user){?>
             <tr>
                 <td><?php echo $i++;?></td>
-                <td><a href="<?php echo site_url('user/info').'/'.$user->username;?>"><?php echo $user->username;?></a></td>
+                <td><a href="<?php echo site_url('user/info').'/'.$user->username;?>"><?php echo $user->nickname;?></a></td>
+                <td><?php echo $user->username;?></td>
                 <td><?php echo $user->phone;?></td>
                 <td><?php echo $user->address;?></td>
                 <td><?php echo $user->role;?></td>
@@ -35,6 +38,9 @@
             </tr>
         <?php }?>
     </table>
+    <?php }else{?>
+        未查到结果！
+    <?php }?>
     <br>
 </div>
 <hr>
@@ -42,6 +48,7 @@
 <h2 style="text-align: center;">Books</h2>
 <br>
 <div class="container">
+    <?php if (count($books) > 0){?>
     <table class="table table-striped">
         <tr>
             <!-- 流水号 -->
@@ -53,7 +60,6 @@
                 <th>manage</th>
             <?php } ?>
         </tr>
-        <!-- 成功分享，没有被借阅 -->
         <?php $i=1; foreach ($books as $book){?>
             <tr>
                 <td><?php echo $i++;?></td>
@@ -71,6 +77,9 @@
             </tr>
         <?php }?>
     </table>
+    <?php }else{?>
+        未查到结果！
+    <?php }?>
     <br>
     <br>
     <!-- 返回按钮 -->
@@ -81,4 +90,6 @@
     </script>
     <button onclick=" goBack() " class="glyphicon glyphicon-arrow-left btn-lg "></button>
 </div>
-
+<script>
+    $("#key").val("<?=$_GET['key']?>");
+</script>

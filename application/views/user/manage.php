@@ -6,12 +6,12 @@
         <tr>
             <!-- 流水号 -->
             <th>No.</th>
-            <th>User name</th>
+            <th>User Email</th>
             <th>Phone</th>
             <th>Address</th>
-            <th>role</th>
-            <th>credits</th>
-            <th>manage</th>
+            <th>Role</th>
+            <th>Credits</th>
+            <th>Manage</th>
         </tr>
         <!-- 成功分享，没有被借阅 -->
         <?php $i=1; foreach ($users as $user){?>

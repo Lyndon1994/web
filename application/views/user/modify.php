@@ -13,6 +13,12 @@
             <input name="username" type="email" value="<?php echo $_SESSION['user']->username; ?>" id="inputEmail"
                    class="form-control" placeholder="Your email" readonly>
             <br>
+            <!-- nickname -->
+            <label for="inputName" class="form-group">Name</label>
+            <?php echo form_error('nickname'); ?>
+            <input name="nickname" type="text" value="<?php echo $_SESSION['user']->nickname; ?>" id="inputName"
+                   class="form-control" placeholder="Your Name" required>
+            <br>
             <!-- 密码 -->
             <label for="inputPassword " class="form-group">Input Password</label>
             <?php echo form_error('password'); ?>

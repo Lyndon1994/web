@@ -44,19 +44,21 @@ class User_model extends CI_Model
 
     public function modify_user()
     {
+            $nickname = $this->input->post('nickname');
             $password = $this->input->post('password');
             $address = $this->input->post('address');
             $phone = $this->input->post('phone');
 
         $name = $_SESSION['user']->username;
 
-        $sql = "update user set password = ?, address =?, phone = ? where username = ?";
-        $this->db->query($sql, array($password,$address,$phone,$name));
+        $sql = "update user set nickname=?, password = ?, address =?, phone = ? where username = ?";
+        $this->db->query($sql, array($nickname,$password,$address,$phone,$name));
     }
     
     public function set_user()
     {
         $data = array(
+            'nickname' => $this->input->post('nickname'),
             'username' => $this->input->post('username'),
             'password' => $this->input->post('password'),
             'address' => $this->input->post('address'),
@@ -71,7 +73,7 @@ class User_model extends CI_Model
     public function set_manager($name)
     {
         if ($name != '') {
-            $sql = "update user set role = 'manager' where username = ?";
+            $sql = "update user set role = 'admin' where username = ?";
             $this->db->query($sql, array($name));
             if ($this->db->affected_rows() > 0) {
                 return true;
@@ -89,8 +91,8 @@ class User_model extends CI_Model
     }
     
     public function search(){
-        $key = $this->input->post('key');
-        $sql = "select * from user WHERE username LIKE '%' '".$key."' '%' OR address LIKE '%' '".$key."' '%' OR phone LIKE '%' '".$key."' '%' OR role LIKE '%' '".$key."' '%'";
+        $key = $this->input->get('key');
+        $sql = "select * from user WHERE nickname LIKE '%' '".$key."' '%' OR username LIKE '%' '".$key."' '%' OR address LIKE '%' '".$key."' '%' OR phone LIKE '%' '".$key."' '%'";
         return $this->db->query($sql)->result();
     }
 }

@@ -14,6 +14,7 @@
     <link href="<?php echo base_url(); ?>source/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="<?php echo base_url(); ?>source/css/carousel.css" rel="stylesheet">
+    <script src="<?php echo base_url(); ?>source/js/jquery.min.js"></script>
 </head>
 
 <body>
@@ -60,7 +61,7 @@
                             $user = $_SESSION['user']; ?>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                   aria-haspopup="true" aria-expanded="false"><?php echo $user->username ?><span
+                                   aria-haspopup="true" aria-expanded="false"><?php echo $user->nickname ?><span
                                         class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="<?php echo site_url('book/add'); ?>">Share my books</a></li>
@@ -84,9 +85,10 @@
                         <!-- 搜索图书-->
                         <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11 -->
                         <li><a href="<?php echo site_url('about'); ?>">About</a></li>
-                        <form action="<?php echo site_url('book/search');?>" method="post" class="navbar-right navbar-form " role="search">
+                        <form action="<?php echo site_url('book/search'); ?>" method="get"
+                              class="navbar-right navbar-form " role="search">
                             <div class="form-group">
-                                <input name="key" type="text" class="form-control" placeholder="Search">
+                                <input name="key" id="key" type="text" class="form-control" placeholder="Search">
                             </div>
                             <button type="submit" class="btn btn-default">Search</button>
                         </form>
@@ -96,3 +98,4 @@
         </nav>
     </div>
 </div>
+</html>

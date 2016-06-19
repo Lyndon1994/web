@@ -1,5 +1,4 @@
 
-
 <!-- 登陆 -->
 <div class="container">
     <center>
@@ -12,18 +11,23 @@
             <br>
             <!-- 账户 -->
             <label for="inputEmail" class="sr-only">Email address</label>
-            <input name="username" type="text" id="inputEmail" class="form-control" placeholder="user name" required autofocus>
+            <?php echo form_error('username'); ?>
+            <input name="username" value="<?php echo set_value('username'); ?>" type="text" id="inputEmail" class="form-control" placeholder="your email" required autofocus>
             <br>
             <!-- 密码 -->
             <label for="inputPassword" class="sr-only">Password</label>
-            <input name="password" type="password" id="inputPassword" class="form-control" placeholder="password" required>
+            <?php echo form_error('password'); ?>
+            <input name="password" value="<?php echo set_value('password'); ?>" type="password" id="inputPassword" class="form-control" placeholder="password" required>
             <br>
             <label for="inputPassword" class="sr-only">Captcha</label>
+            <?php echo form_error('validate'); ?>
             <input type="text" name="validate" placeholder="captcha" size=10  class="form-control" required/>
             <img title="点击刷新" src="<?php echo site_url('captcha');?>" align="absbottom" onclick="this.src='<?php echo site_url('captcha');?>?'+Math.random();"/>
 
             <!-- 调转到注册页面 -->
             <p><a href="<?php echo site_url('user/register');?>">Do not have account!</a></p>
+            <!-- 忘记密码 -->
+            <p><a href="<?php echo site_url('user/get_password');?>">Forget your password?</a></p>
             <!-- 是否记住密码 -->
             <div class="checkbox">
                 <label>

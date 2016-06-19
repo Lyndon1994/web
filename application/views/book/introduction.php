@@ -54,11 +54,37 @@
                         <div class="panel-body" style="text-align: center;"><?php echo $book->time ?></div>
                     </div>
                 </div>
+                <!-- 租借书的按钮 -->
+                <?php if ($book->status == '在架上' || $book->status == '在读') { ?>
+                    <p><a href="<?php echo site_url('book/borrow') . '/' . $book->bookid; ?>" class="btn btn-warning"
+                          style="color: blue" role="button">预约</a></p>
+                <?php } ?>
+
+                <!-- 评论书籍的地方 -->
+                <br>
+                <br>
+                <a name="commentA"></a>
+                <h2 style="text-align: center;">welcome to comment here!</h2>
+                <form action="<?php echo site_url('book/comment'); ?>" method="post">
+                    <input name="bookid" type="hidden" value="<?php echo $book->bookid; ?>"/>
+                    <?php if (isset($_SESSION['error'])) {
+                        echo $_SESSION['error'];
+                    } ?>
+                    <label>
+                        <textarea id="textarea" name="content" rows="10" cols="100"
+                                  style="overflow:scroll; max-height:300px" required></textarea>
+                    </label>
+                    <br>
+                    <input type="submit" value="submit comments"/>
+                </form>
+                <br>
+
+                <br>
                 <!-- 显示评论的地方 -->
                 <br>
                 <h2 style="text-align: center;">I have so many comments</h2>
                 <br>
-                <div class="row center-block">
+                <div class="row center-block" id="comments">
                     <!-- 每一条评论 -->
                     <?php foreach ($comments as $comment) { ?>
                         <div class="panel panel-info">
@@ -76,28 +102,7 @@
                         </div>
                     <?php } ?>
                 </div>
-                <!-- 评论书籍的地方 -->
-                <br>
-                <br>
-                <a name="commentA"></a>
-                <h2 style="text-align: center;">welcome to comment here!</h2>
-                <form action="<?php echo site_url('book/comment'); ?>" method="post">
-                    <input name="bookid" type="hidden" value="<?php echo $book->bookid; ?>"/>
-                    <label>
-                        <textarea id="textarea" name="content" rows="10" cols="100"
-                                  style="overflow:scroll; max-height:300px"></textarea>
-                    </label>
-                    <br>
-                    <input type="submit" value="submit comments"/>
-                </form>
-                <br>
 
-                <br>
-                <!-- 租借书的按钮 -->
-                <?php if ($book->status == '在架上' || $book->status == '在读') { ?>
-                    <p><a href="<?php echo site_url('book/borrow') . '/' . $book->bookid; ?>" class="btn btn-warning"
-                          style="color: blue" role="button">预约</a></p>
-                <?php } ?>
             </div>
             <!-- /.col-lg-4 -->
         </div>
@@ -105,9 +110,35 @@
     </center>
     <!-- 书籍介绍 -->
 </div>
+<div id="nodata" class="container"></div>
+<script>
+    $(function () {
+        var winH = $(window).height(); //页面可视区域高度
+        var i = 1; //设置当前页数
+        $(window).scroll(function () {
+            var pageH = $(document.body).height();
+            var scrollT = $(window).scrollTop(); //滚动条top
+            var aa = (pageH - winH - scrollT) / winH;
+            if (aa < 0.01) {
+                $.getJSON("/book/more_comment", {id:<?=$book->bookid?>,page: i}, function (json) {
+                    if (json!='') {
+                        var str = "";
+                        $.each(json, function (index, comment) {
+                            str += "<div class='panel panel-info'><div class='panel-heading pull-right' style='align-content: right;'><a href='/user/info/" + comment['username']+"'>"+comment['username']+"</a><label>"+ comment['time']+"</label></div><div class='panel-body' style='text-align: left;'><p style='text-align: left;'>"+ comment['content']+"</p></div></div>";
+                        });
+                        $("#comments").append(str);
+                        i++;
+                    } else {
+                        $("#nodata").html("<div class='alert alert-warning' role='alert'>别滚动了，已经到底了。。。</div>");
+                        return false;
+                    }
+                });
+            }
+        });
+    });
 
-<!--引入jquery和wangEditor.js-->   <!--注意：javascript必须放在body最后，否则可能会出现问题-->
-<script type="text/javascript" src="/source/js/jquery.min.js"></script>
+</script>
+
 <script type="text/javascript" src="/source/js/wangEditor.min.js"></script>
 <!--这里引用jquery和wangEditor.js-->
 <script type="text/javascript">

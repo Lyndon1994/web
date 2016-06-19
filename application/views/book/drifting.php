@@ -16,7 +16,7 @@
         <?php $i=1; foreach ($logs as $log){?>
         <tr>
             <td><?php echo $i++;?></td>
-            <td><a href="<?php echo site_url('user/info').'/'.$log->username;?>"><?php echo $log->username;?></a></td>
+            <td><a href="<?php echo site_url('user/info').'/'.$log->username;?>"><?php echo $log->nickname;?></a></td>
             <td><?php echo $log->begintime;?></td>
             <td><?php echo $log->endtime;?></td>
             <td><?php echo $log->status;?></td>

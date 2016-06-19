@@ -7,11 +7,17 @@
             <?php if (isset($tip) && $tip != '') { ?>
                 <div class="alert alert-danger" role="alert"><?php echo $tip; ?></div>
             <?php } ?>
+            <!-- nickname -->
+            <label for="inputName" class="form-group">Name</label>
+            <?php echo form_error('nickname'); ?>
+            <input name="nickname" type="text" value="<?php echo set_value('nickname'); ?>" id="inputName"
+                   class="form-control" placeholder="Your Name" required autofocus>
+            <br>
             <!-- username -->
             <label for="inputEmail" class="form-group">Email</label>
             <?php echo form_error('username'); ?>
             <input name="username" type="email" value="<?php echo set_value('username'); ?>" id="inputEmail"
-                   class="form-control" placeholder="Your email" required autofocus>
+                   class="form-control" placeholder="Your email" required>
             <br>
             <!-- 密码 -->
             <label for="inputPassword " class="form-group">Input Password</label>

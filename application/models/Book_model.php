@@ -82,7 +82,7 @@ class Book_model extends CI_Model{
     }
 
     public function search(){
-        $key = $this->input->post('key');
+        $key = $this->input->get('key');
         $sql = "select * from book WHERE author LIKE '%' '".$key."' '%' OR introduction LIKE '%' '".$key."' '%' OR status LIKE '%' '".$key."' '%' OR class LIKE '%' '".$key."' '%'";
         return $this->db->query($sql)->result();
     }

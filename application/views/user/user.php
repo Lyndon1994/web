@@ -1,8 +1,9 @@
 <!-- 显示申请借阅，借阅成功，借阅失败的表格-->
 <div class="container">
     <div class="jumbotron">
-        <h1><?php echo $userInfo->username; ?></h1>
-        <p><span class="label label-primary">Phone:<?php echo $userInfo->phone; ?></span>
+        <h1><?php echo $userInfo->nickname; ?></h1>
+        <p><span class="label label-primary">Name:<?php echo $userInfo->nickname; ?></span>
+            <span class="label label-primary">Phone:<?php echo $userInfo->phone; ?></span>
             <span class="label label-info">Credit:<?php echo $userInfo->credits; ?></span>
         </p>
         <p><span class="label label-default">Address:<?php echo $userInfo->address; ?></span></p>

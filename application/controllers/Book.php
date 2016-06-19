@@ -61,11 +61,27 @@ class Book extends CI_Controller
     {
         $this->user_model->is_login();
         $bookid = $this->input->post('bookid');
-        $this->comments_model->set_comments();
-        //返回原界面
-        redirect('/book/' . $bookid);
+        $content = $this->input->post('content');
+        if (strlen($content)<10) {
+            //如何提示？？？？？？
+//            $this->session->set_userdata('error', "评轮不得少于10个字！");
+            redirect('/book/' . $bookid);
+        } else {
+            $this->comments_model->set_comments();
+//            unset($_SESSION['error']);
+            //返回原界面
+            redirect('/book/' . $bookid);
+        }
     }
 
+    public function more_comment(){
+        $page = intval($_GET['page']);  //获取请求的页数
+        $bookid = intval($_GET['id']);  //获取请求的页数
+        $start = $page*5;
+        $sql="select * from comments  where bookid=$bookid ORDER BY time DESC limit $start,5";
+        $arr = $this->db->query($sql)->result_array();
+        echo json_encode($arr);  //转换为json数据输出
+    }
     /**
      * 租借图书
      */
