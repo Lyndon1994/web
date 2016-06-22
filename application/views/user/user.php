@@ -2,7 +2,7 @@
 <div class="container">
     <div class="jumbotron">
         <h1><?php echo $userInfo->nickname; ?></h1>
-        <p><span class="label label-primary">Name:<?php echo $userInfo->nickname; ?></span>
+        <p><span class="label label-primary">Name:<?php echo $userInfo->username; ?></span>
             <span class="label label-primary">Phone:<?php echo $userInfo->phone; ?></span>
             <span class="label label-info">Credit:<?php echo $userInfo->credits; ?></span>
         </p>
