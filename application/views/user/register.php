@@ -21,7 +21,7 @@
             <br>
             <!-- 密码 -->
             <label for="inputPassword " class="form-group">Input Password</label>
-            <?php echo form_error('password'); ?>
+            <span style="color: red"><?php echo form_error('password'); ?></span>
             <input name="password" type="password" value="<?php echo set_value('password'); ?>" id="inputPassword "
                    class="form-control " placeholder="Input Password " required>
             <br>

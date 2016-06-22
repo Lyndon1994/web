@@ -26,7 +26,7 @@
                     <div class="panel-heading" style="align-content: center;">
                         <h3>Introduction</h3></div>
                     <!-- 书籍介绍的具体内容 -->
-                    <div class="panel-body" style="text-align: left;" ;><?php echo $book->introduction ?></div>
+                    <div class="panel-body" style="text-align: left;" ;><span class="label label-default"><?php echo $book->class ?></span><?php echo $book->introduction ?></div>
                 </div>
                 <br>
                 <!-- 书籍的附加信息 -->

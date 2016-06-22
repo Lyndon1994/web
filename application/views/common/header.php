@@ -96,7 +96,7 @@
                     </ul>
                     <!-- dropdown  -->
                 </div>
+            </div>
         </nav>
     </div>
 </div>
-</html>

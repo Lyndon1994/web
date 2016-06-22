@@ -1,0 +1,311 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="图书漂流">
+    <meta name="author" content="linyi zhoujiawei">
+    <link rel="icon" href="/source/images/book.ico">
+    <title>Book Share</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/source/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/source/css/carousel.css" rel="stylesheet">
+    <script src="/source/js/jquery.min.js"></script>
+</head>
+
+<body>
+<!-- 导航栏================================================== -->
+<div class="navbar-wrapper">
+    <div class="container">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- 标题的头部 -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                            aria-expanded="false" aria-controls="navbar">
+                        <!--  <span class="sr-only">Toggle navigation</span>
+                          <span class="icon-bar">zjw</span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span> -->
+                    </button>
+                    <!-- 标题的名字 -->
+                    <a class="navbar-brand" href="/">Book Share</a>
+                </div>
+                <!-- 副标题 -->
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <!-- 登录 -->
+                        <!--
+                        <script type="text/javascript">
+                        signinFuc();
+                        haveSigned(zjw);
+                        // 如果没有登录了，调用这个方法
+                        function signinFuc() {
+                          document.write("<li><a href=/"
+                            login.html / ">Sign in</a></li>");
+                        }
+                        //如果已经登录，那么调用这个方法
+                        function haveSigned(username) {
+                          document.write("<li><a href=/"
+                            login.html / ">" + username + "</a></li>");
+                        }
+                        </script>
+                        <li onloadstart="signinFuc()">
+                        </li> -->
+                        <li><a href="/">Home Page</a></li>
+                        <li><a href="/user/login">Sign in</a></li>
+                        <!-- 搜索图书-->
+                        <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11 -->
+                        <li><a href="/about">About</a></li>
+                        <form action="/book/search" method="get"
+                              class="navbar-right navbar-form " role="search">
+                            <div class="form-group">
+                                <input name="key" id="key" type="text" class="form-control" placeholder="Search">
+                            </div>
+                            <button type="submit" class="btn btn-default">Search</button>
+                        </form>
+                    </ul>
+                    <!-- dropdown  -->
+                </div>
+            </div>
+        </nav>
+    </div>
+<style>
+    .fader{display: none;}
+</style>
+<!-- 巨幕 -->
+<!-- ================================================== -->
+<div class="container">
+    <div class="jumbotron">
+        <h1>Book Share</h1>
+        <br>
+        <h3>Books is flying here! Find your own books! Share your books!</h3>
+    </div>
+</div>
+
+    <style>
+        #demo {
+            margin: auto;
+            position: relative;
+        }
+
+        .box {
+            float: left;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background: #f7f7f7;
+            box-shadow: 0 0 8px #ccc;
+        }
+
+        .box:hover { box-shadow: 0 0 10px #999; }
+        .box{width: 200px}
+        .box img { width: 200px; }
+    </style>
+    <div class="container">
+    <div class="box">
+        <img class="img-responsive col-md-2"
+                          src="https://img3.doubanio.com/spic/s27289021.jpg"
+                          alt="Thinking in Java">
+        <h3><a href="/book/66">Thinking in Java</a></h3>
+            <!-- 书籍的作者 -->
+            <span class="label label-info">Bruce Eckel sadadadasdd</span>
+            <span class="label label-primary">在架上</span>
+            <span class="label label-success"><a href="/book/borrow/66" style="color: yellow">预约</a></span>
+        <p>《童年》是高尔基自传体三部曲中的第一部，内容包括了高尔基幼年时期从三岁至...</p>
+    </div>
+    </div>
+    <hr>
+<div id="body">
+    <!-- 分享书籍的显示 -->
+    <div class="container fader">
+        <!-- 第一本书的介绍 -->
+        <hr class="featurette-divider" align="center">
+        <div>
+            <div>
+                <!-- 书籍的图片 -->
+                <img class="img-responsive col-md-2"
+                     src="https://img3.doubanio.com/spic/s27289021.jpg"
+                     alt="Thinking in Java" width="100" height="100">
+            </div>
+            <div col-md-3>
+                <!-- 书籍的标题 -->
+                <h2 class="featurette-heading"><a
+                        href="/book/66">Thinking in Java</a>
+                    <!-- 书籍的作者 -->
+                    <span class="label label-info">Bruce Eckel</span>
+                    <span class="label label-default">Java TinkingInJava 编程 计算机 Prog</span>
+                    <span class="label label-primary">在架上</span>
+                                                    <span><a href="/book/borrow/66"
+                                                             class="btn btn-warning" style="color: blue" role="button">预约</a></span>
+                </h2>
+                <!-- 书籍的介绍 -->
+                <p class="lead">Thinking in Java</p>
+            </div>
+        </div>
+    </div>
+    <div class="container fader">
+        <!-- 第一本书的介绍 -->
+        <hr class="featurette-divider" align="center">
+        <div>
+            <div>
+                <!-- 书籍的图片 -->
+                <img class="img-responsive col-md-2"
+                     src="/source/images/books/book65.jpg"
+                     alt="童年" width="100" height="100">
+            </div>
+            <div col-md-3>
+                <!-- 书籍的标题 -->
+                <h2 class="featurette-heading"><a
+                        href="/book/65">童年</a>
+                    <!-- 书籍的作者 -->
+                    <span class="label label-info">[苏] 高尔基</span>
+                    <span class="label label-default">高尔基 外国文学 小说 苏联 名著 童年 经典 外国名著 </span>
+                    <span class="label label-primary">在架上</span>
+                                                    <span><a href="/book/borrow/65"
+                                                             class="btn btn-warning" style="color: blue" role="button">预约</a></span>
+                </h2>
+                <!-- 书籍的介绍 -->
+                <p class="lead">《童年》是高尔基自传体三部曲中的第一部，内容包括了高尔基幼年时期从三岁至十岁这一段时间的生活断面。阿寥沙·彼什科夫三岁丧父后，由母亲和外祖母带到外祖父家。外祖父卡什林是一个小染坊主，已濒临破产。他性情暴躁、乖戾、贪婪、自私；两个舅舅米哈伊尔和雅科夫也是粗野、自私的市侩，甚至第三代也受到很坏的影响。外祖父家里，弥漫着人与人之间的炽热的仇恨之雾；大人都中了仇恨的毒，连小孩也热烈地参加一份。这是一个典型</p>
+            </div>
+        </div>
+    </div>
+    <div class="container fader">
+        <!-- 第一本书的介绍 -->
+        <hr class="featurette-divider" align="center">
+        <div>
+            <div>
+                <!-- 书籍的图片 -->
+                <img class="img-responsive col-md-2"
+                     src="https://img1.doubanio.com/spic/s2263997.jpg"
+                     alt="童年" width="100" height="100">
+            </div>
+            <div col-md-3>
+                <!-- 书籍的标题 -->
+                <h2 class="featurette-heading"><a
+                        href="/book/64">童年</a>
+                    <!-- 书籍的作者 -->
+                    <span class="label label-info">[苏] 高尔基</span>
+                    <span class="label label-default">高尔基 外国文学 小说 苏联 名著 童年 经典 外国名著 </span>
+                    <span class="label label-primary">在架上</span>
+                                                    <span><a href="/book/borrow/64"
+                                                             class="btn btn-warning" style="color: blue" role="button">预约</a></span>
+                </h2>
+                <!-- 书籍的介绍 -->
+                <p class="lead">《童年》是高尔基自传体三部曲中的第一部，内容包括了高尔基幼年时期从三岁至十岁这一段时间的生活断面。阿寥沙·彼什科夫三岁丧父后，由母亲和外祖母带到外祖父家。外祖父卡什林是一个小染坊主，已濒临破产。他性情暴躁、乖戾、贪婪、自私；两个舅舅米哈伊尔和雅科夫也是粗野、自私的市侩，甚至第三代也受到很坏的影响。外祖父家里，弥漫着人与人之间的炽热的仇恨之雾；大人都中了仇恨的毒，连小孩也热烈地参加一份。这是一个典型</p>
+            </div>
+        </div>
+    </div>
+    <div class="container fader">
+        <!-- 第一本书的介绍 -->
+        <hr class="featurette-divider" align="center">
+        <div>
+            <div>
+                <!-- 书籍的图片 -->
+                <img class="img-responsive col-md-2"
+                     src="https://img1.doubanio.com/mpic/s2241708.jpg"
+                     alt="钢铁是怎样炼成的" width="100" height="100">
+            </div>
+            <div col-md-3>
+                <!-- 书籍的标题 -->
+                <h2 class="featurette-heading"><a
+                        href="/book/63">钢铁是怎样炼成的</a>
+                    <!-- 书籍的作者 -->
+                    <span class="label label-info">[苏] 尼·奥斯特洛夫斯基</span>
+                    <span class="label label-default">外国文学 钢铁是怎样炼成的 苏联 励志 小说 名著 经典 外</span>
+                    <span class="label label-primary">在架上</span>
+                                                    <span><a href="/book/borrow/63"
+                                                             class="btn btn-warning" style="color: blue" role="button">预约</a></span>
+                </h2>
+                <!-- 书籍的介绍 -->
+                <p class="lead">本书的主人公保尔·柯察金饱尝了生活的苦难，炼就了革命精神和反抗性格。十月革命爆发后只有十六岁的他，就参加了红军，无论在战炮火中，还是在国民经济复时期，可察金都表现出大无畏精神，钢铁一般的意志，强烈的爱国主义和对人民的无限的无限忠诚。由于在战争中多次负伤以及劳累过度，他全身瘫痪，双目失明，被牢牢禁锢在床上，但他占胜了精神与肉体的打击，拿起笔来歌颂为建立苏维埃政权而奋斗的英雄。</p>
+            </div>
+        </div>
+    </div>
+    <div class="container fader">
+        <!-- 第一本书的介绍 -->
+        <hr class="featurette-divider" align="center">
+        <div>
+            <div>
+                <!-- 书籍的图片 -->
+                <img class="img-responsive col-md-2"
+                     src="/source/images/books/book62.jpg"
+                     alt="童年" width="100" height="100">
+            </div>
+            <div col-md-3>
+                <!-- 书籍的标题 -->
+                <h2 class="featurette-heading"><a
+                        href="/book/62">童年</a>
+                    <!-- 书籍的作者 -->
+                    <span class="label label-info">奥斯特罗夫斯基</span>
+                    <span class="label label-default">小说</span>
+                    <span class="label label-primary">在架上</span>
+                                                    <span><a href="/book/borrow/62"
+                                                             class="btn btn-warning" style="color: blue" role="button">预约</a></span>
+                </h2>
+                <!-- 书籍的介绍 -->
+                <p class="lead">童年</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="nodata" class="container"></div>
+<script type="text/javascript" src="/source/js/jquery.jqfader.js"></script>
+<script type="text/javascript" src="/source/js/main.js"></script>
+
+<script>
+    $(function () {
+        var winH = $(window).height(); //页面可视区域高度
+        var i = 1; //设置当前页数
+        $(window).scroll(function () {
+            var pageH = $(document.body).height();
+            var scrollT = $(window).scrollTop(); //滚动条top
+            var aa = (pageH - winH - scrollT) / winH;
+            if (aa < 0.01) {
+                $.getJSON("/book/more", {page: i}, function (json) {
+                    if (json!='') {
+                        var str = "";
+                        $.each(json, function (index, array) {
+                            str += "<div class='container'> <hr class='featurette-divider' align='center'> <div> <div> <img class='img-responsive col-md-2' src='"+array['image']+"' alt='"+ array['bookname'] +"' width='100' height='100'> </div> <div col-md-3>";
+                            str += "<h2 class='featurette-heading'><a href='/book/" + array['bookid'] +"'>" + array['bookname'] + "</a>";
+                            str += "<span class='label label-info'>"+ array['author'] + "</span>";
+                            str += "<span class='label label-default'>"+ array['class'] +"</span>";
+                            str += "<span class='label label-primary'>"+ array['status'] +"</span>";
+                            if (array['status'] == '在架上' || array['status'] == '在读') {
+                                str+="<span><a href='/book/borrow/"+ array['bookid'] + "' class='btn btn-warning' style='color: blue' role='button'>预约</a></span>";
+                            };
+                            str+="</h2>";
+                            str+="<p class='lead'>"+ array['introduction'] +"</p> </div> </div> </div>";
+                        });
+                        $("#body").append(str);
+                        i++;
+                    } else {
+                        $("#nodata").html("<div class='alert alert-warning' role='alert'>别滚动了，已经到底了。。。</div>");
+                        return false;
+                    }
+                });
+            }
+        });
+    });
+
+</script>
+
+<!-- 页面的页脚-->
+<div class="container">
+    <footer>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>Copyright &copy; 2016 <a href="/about/team">WEB</a></p>
+    </footer>
+</div>
+<!-- /.container -->
+<!-- Bootstrap core JavaScript
+  ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/source/js/bootstrap.min.js"></script>
+</body>
+
+</html>
