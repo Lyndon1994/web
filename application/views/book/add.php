@@ -21,10 +21,15 @@
             <br>
             <!-- 选择图书的图片 -->
             <div class="form-group">
-                <label for="inputImg">Image(Within 1M)</label>
+                <label for="inputImg"><span data-toggle="tooltip" data-placement="left" title="优先使用自己上传的图片">Image(Within 1M)</span></label>
                 <input type="file" name="userfile" id="inputImg">
                 <input type="text" name="webimage" id="webImg" class="form-control" placeholder="Book Web Image">
             </div>
+            <script>
+                $(function () {
+                    $('[data-toggle="tooltip"]').tooltip()
+                })
+            </script>
             <br>
             <!-- 图书作者 -->
             <label for="bookAuthor" class="form-group">Book Author</label>

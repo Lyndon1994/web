@@ -56,6 +56,7 @@
                         </script>
                         <li onloadstart="signinFuc()">
                         </li> -->
+                        <li><a href="<?php echo site_url('/'); ?>">Home Page</a></li>
                         <?php
                         if (isset($_SESSION['user'])) {
                             $user = $_SESSION['user']; ?>
