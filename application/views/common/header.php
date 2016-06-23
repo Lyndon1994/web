@@ -15,6 +15,7 @@
     <!-- Custom styles for this template -->
     <link href="<?php echo base_url(); ?>source/css/carousel.css" rel="stylesheet">
     <script src="<?php echo base_url(); ?>source/js/jquery.min.js"></script>
+    <script src="<?php echo base_url(); ?>source/js/test.js"></script>
 </head>
 
 <body>
@@ -82,6 +83,7 @@
                         <?php } else {
                             ?>
                             <li><a href="<?php echo site_url('user/login'); ?>">Sign in</a></li>
+                            <li><a href="<?php echo site_url('user/register'); ?>">Sign up</a></li>
                         <?php } ?>
                         <!-- 搜索图书-->
                         <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11 -->

@@ -1,4 +1,3 @@
-<!-- 成员的介绍 -->
 <!DOCTYPE html>
 <html lang="zh-CN">
 
@@ -7,9 +6,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-  <title>memberIntro@book share</title>
-  <!-- Bootstrap -->
+  <meta name="description" content="图书漂流">
+  <meta name="author" content="linyi zhoujiawei">
+  <link rel="icon" href="<?php echo base_url(); ?>source/images/book.ico">
+  <title>Members Introduction</title>
+  <!-- Bootstrap core CSS -->
   <link href="<?php echo base_url(); ?>source/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="<?php echo base_url(); ?>source/css/carousel.css" rel="stylesheet">
+  <script src="<?php echo base_url(); ?>source/js/jquery.min.js"></script>
 </head>
 
 <body>
@@ -51,17 +56,19 @@
             </script>
             <li onloadstart="signinFuc()">
             </li> -->
+            <li><a href="<?php echo site_url('/'); ?>">Home Page</a></li>
             <?php
             if (isset($_SESSION['user'])) {
               $user = $_SESSION['user']; ?>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                   aria-haspopup="true" aria-expanded="false"><?php echo $user->username ?><span
+                   aria-haspopup="true" aria-expanded="false"><?php echo $user->nickname ?><span
                       class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="<?php echo site_url('book/add'); ?>">Share my books</a></li>
                   <li><a href="<?php echo site_url('user'); ?>">My books</a></li>
                   <li><a href="<?php echo site_url('user/history'); ?>">History</a></li>
+                  <li><a href="<?php echo site_url('user/modify'); ?>">Modify Information</a></li>
                   <?php if ($user->role == 'admin') { ?>
                     <li><a href="<?php echo site_url('book/manage'); ?>">Manage Books</a></li>
                     <li><a href="<?php echo site_url('user/manage'); ?>">Manage Users</a></li>
@@ -75,19 +82,22 @@
             <?php } else {
               ?>
               <li><a href="<?php echo site_url('user/login'); ?>">Sign in</a></li>
+              <li><a href="<?php echo site_url('user/register'); ?>">Sign up</a></li>
             <?php } ?>
             <!-- 搜索图书-->
             <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11 -->
             <li><a href="<?php echo site_url('about'); ?>">About</a></li>
-            <form action="<?php echo site_url('book/search');?>" method="post" class="navbar-right navbar-form " role="search">
+            <form action="<?php echo site_url('book/search'); ?>" method="get"
+                  class="navbar-right navbar-form " role="search">
               <div class="form-group">
-                <input name="key" type="text" class="form-control" placeholder="Search">
+                <input name="key" id="key" type="text" class="form-control" placeholder="Search">
               </div>
               <button type="submit" class="btn btn-default">Search</button>
             </form>
           </ul>
           <!-- dropdown  -->
         </div>
+      </div>
     </nav>
   </div>
 </div>
@@ -102,19 +112,19 @@
     <div class="col-lg-4" align="center">
       <img class="img-circle" vertical-align="down" src="<?php echo base_url('source/images'); ?>/ly.jpg" width="140" height="140">
       <h2>Yi Lin</h2>
-      <p class="text-danger">group leader</p>
+      <p class="text-danger">group leader & programmer</p>
       <p><a class="btn btn-default" href="#" role="button">support</a></p>
     </div>
     <!-- zjw -->
     <div class="col-lg-4" align="center">
       <img class="img-circle" src="<?php echo base_url('source/images'); ?>/zjw.jpg" width="140" height="140">
       <h2>Jiawei Zhou</h2>
-      <p class="text-danger">Front-end web developer for this web</p>
+      <p class="text-danger">Front-end web developer</p>
       <p><a class="btn btn-default" href="#" role="button">support</a></p>
     </div>
     <!-- xiao nan -->
     <div class="col-lg-4" align="center">
-      <img class="img-circle" src="<?php echo base_url('source/images'); ?>/pic.jpg" alt="Generic placeholder image" width="140" height="140">
+      <img class="img-circle" src="<?php echo base_url('source/images'); ?>/xn.jpg" alt="Generic placeholder image" width="140" height="140">
       <h2>Nan Xiao</h2>
       <p class="text-danger">Database Designer</p>
       <p><a class="btn btn-default" href="#" role="button">View details </a></p>
@@ -127,23 +137,23 @@
   <div class="row">
     <!-- 人员 -->
     <div class="col-lg-4" align="center">
-      <img class="img-circle" vertical-align="down" src="<?php echo base_url('source/images'); ?>/pic.jpg" width="140" height="140">
-      <h2>Ming Wang</h2>
-      <p>intro</p>
+      <img class="img-circle" vertical-align="down" src="<?php echo base_url('source/images'); ?>/wm.jpg" width="140" height="140">
+      <h2>Min Wang</h2>
+      <p>Designer</p>
       <p><a class="btn btn-default" href="#" role="button">support</a></p>
     </div>
     <!-- zjw -->
     <div class="col-lg-4" align="center">
-      <img class="img-circle" src="<?php echo base_url('source/images'); ?>/pic.jpg" width="140" height="140">
-      <h2>Fangnin Chao</h2>
-      <p>intro</p>
+      <img class="img-circle" src="<?php echo base_url('source/images'); ?>/cfn.jpg" width="140" height="140">
+      <h2>Fangning Chao</h2>
+      <p>Operation & Maintenance Engineer</p>
       <p><a class="btn btn-default" href="#" role="button">support</a></p>
     </div>
     <!-- xiao nan -->
     <div class="col-lg-4" align="center">
       <img class="img-circle" src="<?php echo base_url('source/images'); ?>/pic.jpg" alt="Generic placeholder image" width="140" height="140">
       <h2>Ruowen Ren</h2>
-      <p>intro</p>
+      <p>Analyst</p>
       <p><a class="btn btn-default" href="#" role="button">View details </a></p>
     </div>
   </div>
@@ -153,23 +163,23 @@
   <div class="row">
     <!-- 人员 -->
     <div class="col-lg-4" align="center">
-      <img class="img-circle" vertical-align="down" src="<?php echo base_url('source/images'); ?>/pic.jpg" width="140" height="140">
+      <img class="img-circle" vertical-align="down" src="<?php echo base_url('source/images'); ?>/lyue.jpg" width="140" height="140">
       <h2>Yue Li</h2>
-      <p>intro</p>
+      <p>Architect</p>
       <p><a class="btn btn-default" href="#" role="button">support</a></p>
     </div>
     <!-- zjw -->
     <div class="col-lg-4" align="center">
-      <img class="img-circle" src="<?php echo base_url('source/images'); ?>/pic.jpg" width="140" height="140">
+      <img class="img-circle" src="<?php echo base_url('source/images'); ?>/wx.jpg" width="140" height="140">
       <h2>Xin Wang</h2>
-      <p>intro</p>
+      <p>Architect</p>
       <p><a class="btn btn-default" href="#" role="button">support</a></p>
     </div>
     <!-- xiao nan -->
     <div class="col-lg-4" align="center">
-      <img class="img-circle" src="<?php echo base_url('source/images'); ?>/pic.jpg" alt="Generic placeholder image" width="140" height="140">
+      <img class="img-circle" src="<?php echo base_url('source/images'); ?>/yt.jpg" alt="Generic placeholder image" width="140" height="140">
       <h2>Tian Yang</h2>
-      <p>intro</p>
+      <p>product manager</p>
       <p><a class="btn btn-default" href="#" role="button">View details </a></p>
     </div>
   </div>
@@ -179,19 +189,18 @@
   <div class="row">
     <!-- 人员 -->
     <div class="col-lg-4" align="center">
-      <img class="img-circle" vertical-align="down" src="<?php echo base_url('source/images'); ?>/pic.jpg" width="140" height="140">
+      <img class="img-circle" vertical-align="down" src="<?php echo base_url('source/images'); ?>/zxt.jpg" width="140" height="140">
       <h2>Xueting Zhang</h2>
-      <p>intro</p>
+      <p>Investor & Boss</p>
       <p><a class="btn btn-default" href="#" role="button">support</a></p>
     </div>
   </div>
 </div>
 <!-- /.row -->
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="<?php echo base_url(); ?>source/js/bootstrap.min.js"></script>
+<script src="<?php echo base_url(); ?>source/js/test.js"></script>
 </body>
 
 </html>

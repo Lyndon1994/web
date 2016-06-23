@@ -46,7 +46,7 @@
             <?php if ($book->status == '在架上' || $book->status == '在读') { ?>
                 <span class="label label-success"><a href="<?php echo site_url('book/borrow') . '/' . $book->bookid; ?>" style="color: yellow">预约</a></span>
             <?php } ?>
-            <p><?php if (strlen($book->introduction)>30) echo substr($book->introduction,0,30)."...";
+            <p><?php if (mb_strlen($book->introduction,"utf-8")>30) echo mb_substr($book->introduction,0,30,'utf-8')."...";
                 else echo $book->introduction;?></p>
         </div>
     <?php } ?>

@@ -9,25 +9,25 @@
             <?php } ?>
             <!-- nickname -->
             <label for="inputName" class="form-group">Name</label>
-            <?php echo form_error('nickname'); ?>
+            <span style=color: red">?php echo form_error('nickname'); ?></span>
             <input name="nickname" type="text" value="<?php echo set_value('nickname'); ?>" id="inputName"
                    class="form-control" placeholder="Your Name" required autofocus>
             <br>
             <!-- username -->
             <label for="inputEmail" class="form-group">Email</label>
-            <?php echo form_error('username'); ?>
+            <span style="color: red"><?php echo form_error('username'); ?></span>
             <input name="username" type="email" value="<?php echo set_value('username'); ?>" id="inputEmail"
                    class="form-control" placeholder="Your email" required>
             <br>
             <!-- 密码 -->
             <label for="inputPassword " class="form-group">Input Password</label>
-            <span style="color: red"><?php echo form_error('password'); ?></span>
+            <span style="color: red"><span style="color: red"><?php echo form_error('password'); ?></span></span>
             <input name="password" type="password" value="<?php echo set_value('password'); ?>" id="inputPassword "
                    class="form-control " placeholder="Input Password " required>
             <br>
             <!-- 重复密码 -->
             <label for="ReInputPassword " class="form-group">ReInput Password</label>
-            <?php echo form_error('passconf'); ?>
+            <span style="color: red"><?php echo form_error('passconf'); ?></span>
             <input name="passconf" type="password" value="<?php echo set_value('passconf'); ?>" id="ReInputPassword "
                    class="form-control" placeholder="ReInput Password " required>
             <!-- 检查密码是否相同 -->
@@ -40,7 +40,7 @@
             <!-- phone -->
             <div class="form-group ">
                 <label for="tel">Phone</label>
-                <?php echo form_error('phone'); ?>
+                <span style="color: red"><?php echo form_error('phone'); ?></span>
                 <input name="phone" type="tel" value="<?php echo set_value('phone'); ?>" id="phone"
                        class="form-control " placeholder="Your Phone" required>
             </div>
@@ -48,7 +48,7 @@
             <!-- address -->
             <div class="form-group ">
                 <label for="address">Address</label>
-                <?php echo form_error('address'); ?>
+                <span style="color: red"><?php echo form_error('address'); ?></span>
                 <input name="address" type="text" value="<?php echo set_value('address'); ?>" id="address"
                        class="form-control " placeholder="Your Address" required>
             </div>
