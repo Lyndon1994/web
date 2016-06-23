@@ -11,4 +11,7 @@ class About extends CI_Controller {
 	{
 		$this->load->view('team');
 	}
+	public function test(){
+		$this->load->view('test');
+	}
 }

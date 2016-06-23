@@ -39,24 +39,7 @@
                 <!-- 副标题 -->
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <!-- 登录 -->
-                        <!--
-                        <script type="text/javascript">
-                        signinFuc();
-                        haveSigned(zjw);
-                        // 如果没有登录了，调用这个方法
-                        function signinFuc() {
-                          document.write("<li><a href=/"
-                            login.html / ">Sign in</a></li>");
-                        }
-                        //如果已经登录，那么调用这个方法
-                        function haveSigned(username) {
-                          document.write("<li><a href=/"
-                            login.html / ">" + username + "</a></li>");
-                        }
-                        </script>
-                        <li onloadstart="signinFuc()">
-                        </li> -->
+
                         <li><a href="<?php echo site_url('/'); ?>">Home Page</a></li>
                         <?php
                         if (isset($_SESSION['user'])) {
@@ -88,6 +71,7 @@
                         <!-- 搜索图书-->
                         <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11 -->
                         <li><a href="<?php echo site_url('about'); ?>">About</a></li>
+                        <li><a href="<?php echo site_url('about/team'); ?>">Our Team</a></li>
                         <form action="<?php echo site_url('book/search'); ?>" method="get"
                               class="navbar-right navbar-form " role="search">
                             <div class="form-group">
